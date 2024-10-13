@@ -20,3 +20,26 @@
   width: 104px;
   height: 16px;
 }
+
+@media screen and (max-width: 627px) {
+  .footer {
+    padding: 60px 108px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+  }
+
+  .footer__content {
+    padding: 0;
+    text-align: center;
+    width: 104px;
+    height: 16px;
+    font-family: "Poppins", "noto-sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+}

@@ -5,10 +5,33 @@
 .cards__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 413px);
-  grid-template-rows: repeat(2, auto);
+  grid-template-rows: repeat(auto-fit, auto);
   gap: 40px 20px;
   margin: 0;
   padding: 0;
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
   justify-content: center;
+}
+
+@media screen and (max-width: 627) {
+  .cards {
+    font-family: "Poppins", "noto-sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+    width: 95px;
+    height: 16px;
+  }
+
+  .cards-img {
+    width: 288px;
+    height: 2028px;
+    top: 360px;
+    left: 16px;
+    padding: 0px 0px 20px 0px;
+    gap: 20px;
+    border: 0px 0px 1px 0px;
+    opacity: 0px;
+  }
 }
