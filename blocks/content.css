@@ -1,3 +1,10 @@
 .content {
   padding: 0 20px 0 20px;
 }
+
+@media screen and (max-width: 627px) {
+  .content {
+    max-width: 627px;
+    min-height: 320px;
+  }
+}
