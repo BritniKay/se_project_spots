@@ -4,16 +4,17 @@
 
 .cards__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 413px);
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   grid-template-rows: repeat(2, 3fr);
   margin: 0;
   padding: 0;
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
   justify-content: center;
   gap: 40px 20px;
+  width: 445px;
 }
 
-@media screen and (max-width: 627) {
+@media screen and (max-width: 627px) {
   .cards {
     font-family: "Poppins", "noto-sans", sans-serif;
     font-size: 16px;
