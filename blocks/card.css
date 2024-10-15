@@ -20,24 +20,21 @@
   margin: 0%;
   padding: 0%;
   background-color: #fcf5e5;
-  max-width: 353px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 413px;
 }
 
 .card__title {
   font-family: "poppins", "noto-sans", sans-serif;
   background-color: #fcf5e5;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 16px;
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  background-color: #fcf5e5;
   margin: 0;
   padding: 0%;
 }
@@ -64,11 +61,12 @@
 
   .card__content {
     width: 288px;
+    height: 18px;
     display: flex;
     justify-content: space-between;
     padding-top: 12px;
     list-style-type: none;
-    margin: 0;
+    margin: auto;
     padding: 0;
   }
 
@@ -96,5 +94,7 @@
     opacity: 40%;
     margin: 0;
     padding: 0;
+    width: 20px;
+    height: 18px;
   }
 }
