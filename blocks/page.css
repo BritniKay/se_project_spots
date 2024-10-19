@@ -9,8 +9,13 @@
   max-width: 1280px;
   margin: 0 auto;
 }
-
 @media screen and (max-width: 627px) {
-  .page__section {
+  .page {
+    background-color: #fcf5e5;
+    min-height: 100vh;
+    font-family: "poppins", "noto-sans", sans-serif;
+    padding: 0 10px;
+    width: 320px;
+    height: 2524px;
   }
 }
