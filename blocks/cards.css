@@ -6,11 +6,19 @@
 
 .cards__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(413px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
   margin: 0;
   padding: 20px 0 36px 0;
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
   gap: 20px;
+}
+
+@media screen (max-width: 768px) {
+  .cards__list {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+  }
 }
 
 @media screen and (max-width: 627px) {
@@ -23,6 +31,8 @@
   }
 
   .cards__list {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, auto);
     margin: auto;
     padding: 20px 0;
     width: 288px;
