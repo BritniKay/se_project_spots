@@ -25,7 +25,7 @@
 }
 
 .card__title {
-  font-family: "poppins", "noto-sans", sans-serif;
+  font-family: "Poppins", "noto-sans", sans-serif;
   background-color: #fcf5e5;
   font-size: 16px;
   font-weight: 500;
@@ -71,7 +71,7 @@
     list-style-type: none;
     margin: auto;
     padding: 12px 0 0;
-    font-family: "poppins", "noto-sans", sans-serif;
+    font-family: "Poppins", "noto-sans", sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 16px;
@@ -88,7 +88,7 @@
 
   .card__title {
     margin: 0;
-    font-family: "poppins", "noto-sans", sans-serif;
+    font-family: "Poppins", "noto-sans", sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 16px;

@@ -16,7 +16,7 @@
 
 .profile__name {
   margin: 0 0 13px;
-  font-family: "poppins", "noto-sans", sans-serif;
+  font-family: "Poppins", "noto-sans", sans-serif;
   color: #212121;
   font-size: 32px;
   font-weight: 500;
@@ -33,7 +33,7 @@
 
 .profile__description {
   margin: 0;
-  font-family: "poppins", "noto-sans", sans-serif;
+  font-family: "Poppins", "noto-sans", sans-serif;
   line-height: 1;
   width: 110px;
   height: 18px;
@@ -54,7 +54,7 @@
 .profile__edit-btn {
   margin: auto 0 20px;
   color: rgba(33, 33, 33, 70%);
-  font-family: "poppins", "noto-sans", sans-serif;
+  font-family: "Poppins", "noto-sans", sans-serif;
   border: none;
   background-color: #fcf5e5;
   padding: 0%;
@@ -76,7 +76,7 @@
   color: #fcf5e5;
   height: 52px;
   width: 149px;
-  font-family: "poppins", "noto-sans", sans-serif;
+  font-family: "Poppins", "noto-sans", sans-serif;
   border-radius: 8px;
   line-height: 1;
   font-size: 18px;
