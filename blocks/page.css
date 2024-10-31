@@ -15,7 +15,6 @@
     min-height: 100vh;
     font-family: "Poppins", "noto-sans", sans-serif;
     padding: 0 10px;
-    width: 320px;
-    height: 2524px;
+    max-width: 320px;
   }
 }
