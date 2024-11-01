@@ -55,8 +55,6 @@
 
 @media screen and (max-width: 627px) {
   .card {
-    margin: 0;
-    background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,10 +65,8 @@
   .card__content {
     width: 100%;
     min-height: 16px;
-    justify-content: space-between;
     list-style-type: none;
     margin: auto;
-    padding: 12px 0 0;
     font-family: "Poppins", "noto-sans", sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -79,33 +75,20 @@
   }
 
   .card-img {
-    height: 228px;
-    width: 228px;
+    min-width: 228px;
+    max-width: 228px;
     padding: 0;
     margin: 0;
     background-color: #f8f9fa;
   }
 
   .card__title {
-    margin: 0;
-    font-family: "Poppins", "noto-sans", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 16px;
-    text-align: left;
-    padding: 0;
-    width: 95px;
     max-width: 250px;
   }
 
   .card__like-button {
-    background-image: url(../images/Union.svg);
-    border: none;
-    opacity: 40%;
     margin: 0;
     padding: 0;
-    width: 23px;
-    height: 23px;
     border: 2px;
   }
 }
