@@ -87,11 +87,14 @@
   margin-left: auto;
   margin-bottom: 20px;
   cursor: pointer;
-  width: 157px;
   height: 52px;
   padding: 18px 32px 18px 32px;
   gap: 8px;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .profile__add-btn:hover {
