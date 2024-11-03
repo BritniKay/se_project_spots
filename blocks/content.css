@@ -1,10 +1,11 @@
 .content {
-  padding: 0 20px 0 20px;
+  padding: 0 24px;
 }
 
 @media screen and (max-width: 627px) {
   .content {
     max-width: 627px;
     min-height: 320px;
+    padding: 0 16px;
   }
 }

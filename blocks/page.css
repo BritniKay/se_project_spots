@@ -2,7 +2,6 @@
   background-color: #fcf5e5;
   min-height: 100vh;
   font-family: "Poppins", "noto-sans", sans-serif;
-  padding: 0 10px;
 }
 
 .page__section {
@@ -14,7 +13,6 @@
     background-color: #fcf5e5;
     min-height: 100vh;
     font-family: "Poppins", "noto-sans", sans-serif;
-    padding: 0 10px;
     max-width: 320px;
   }
 }
