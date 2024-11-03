@@ -206,7 +206,8 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    width: 230px;
+    white-space: nowrap;
+    width: 162px;
     height: 20px;
   }
 
@@ -223,7 +224,8 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    width: 125px;
+    white-space: nowrap;
+    width: 100px;
     height: 16px;
   }
 

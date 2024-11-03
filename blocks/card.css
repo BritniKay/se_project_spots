@@ -89,3 +89,18 @@
     border: 2px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .card__content {
+    font-family: "Poppins", "noto-sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+  }
+
+  .card__img {
+    width: 288px;
+    height: 288px;
+  }
+}
