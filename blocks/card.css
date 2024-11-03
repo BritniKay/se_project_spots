@@ -26,9 +26,9 @@
 .card__title {
   font-family: "Poppins", "noto-sans", sans-serif;
   background-color: #fcf5e5;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 16px;
+  line-height: 24px;
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;

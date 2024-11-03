@@ -1,18 +1,23 @@
 .profile {
   display: flex;
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 40px 0 20px;
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
+  height: 210px;
+  margin-top: 80px;
+  margin-left: 80px;
+  padding: 0px 0px 20px 0px;
+  border: 0px 0px 1px 0px;
+  justify: space-between;
 }
 
 .profile__avatar {
-  margin: auto 20px;
-  height: 190px;
-  width: 190px;
   margin-bottom: 20px;
   object-fit: cover;
   border-radius: 8px;
+  width: 190px;
+  height: 190px;
+  gap: 0px;
+  opacity: 0px;
 }
 
 .profile__name {
@@ -50,19 +55,18 @@
 }
 
 .profile__edit-btn {
-  margin: auto 0 20px;
+  padding-top: 20px;
   color: rgba(33, 33, 33, 70%);
   font-family: "Poppins", "noto-sans", sans-serif;
   border: none;
   background-color: #fcf5e5;
   padding: 0%;
-  height: 18px;
-  width: 100px;
+  cursor: pointer;
+  width: 107px;
+  height: 16px;
   gap: 8px;
   border-radius: 90px 0px 0px 0px;
-  opacity: 0.7;
-  padding-top: 112px;
-  cursor: pointer;
+  opacity: 0.7px;
 }
 
 .profile__edit-btn:hover {
@@ -72,10 +76,7 @@
 .profile__add-btn {
   background-color: #000;
   color: #fcf5e5;
-  height: 52px;
-  width: 149px;
   font-family: "Poppins", "noto-sans", sans-serif;
-  border-radius: 8px;
   line-height: 1;
   font-size: 18px;
   border: none;
@@ -86,6 +87,11 @@
   margin-left: auto;
   margin-bottom: 20px;
   cursor: pointer;
+  width: 157px;
+  height: 52px;
+  padding: 18px 32px 18px 32px;
+  gap: 8px;
+  border-radius: 8px;
 }
 
 .profile__add-btn:hover {
