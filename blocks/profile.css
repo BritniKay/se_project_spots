@@ -5,7 +5,6 @@
   height: 210px;
   margin-top: 80px;
   margin-left: 80px;
-  padding: 0px 0px 20px 0px;
   border: 0px 0px 1px 0px;
   justify: space-between;
 }
@@ -16,8 +15,7 @@
   border-radius: 8px;
   width: 190px;
   height: 190px;
-  gap: 0px;
-  opacity: 0px;
+  padding: 0 20px 20px 0;
 }
 
 .profile__name {
@@ -55,18 +53,17 @@
 }
 
 .profile__edit-btn {
-  padding-top: 20px;
   color: rgba(33, 33, 33, 70%);
   font-family: "Poppins", "noto-sans", sans-serif;
   border: none;
   background-color: #fcf5e5;
-  padding: 0%;
   cursor: pointer;
   width: 107px;
   height: 16px;
   gap: 8px;
   border-radius: 90px 0px 0px 0px;
   opacity: 0.7px;
+  padding: 18px 0 20px 0;
 }
 
 .profile__edit-btn:hover {

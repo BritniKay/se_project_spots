@@ -17,13 +17,3 @@
   line-height: 1;
   margin: 0%;
 }
-
-@media screen and (max-width: 627px) {
-  .footer {
-    margin: 0;
-  }
-
-  .footer__content {
-    text-align: center;
-  }
-}
