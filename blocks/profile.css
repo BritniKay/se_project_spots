@@ -134,15 +134,10 @@
   }
 
   .profile__name {
-    -webkit-line-clamp: 1;
-    white-space: nowrap;
-    max-width: 260px;
+    text-align: center;
   }
 
   .profile__description {
-    -webkit-line-clamp: 1;
-    max-width: 98px;
-    margin: 0 auto;
-    white-space: nowrap;
+    text-align: center;
   }
 }
