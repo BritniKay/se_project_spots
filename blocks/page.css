@@ -8,18 +8,3 @@
   max-width: 1280px;
   margin: 0 auto;
 }
-@media screen and (max-width: 627px) {
-  .page {
-    background-color: #fcf5e5;
-    min-height: 100vh;
-    font-family: "Poppins", "noto-sans", sans-serif;
-    width: 627px;
-  }
-}
-
-@media screen and(max-width: 320px) {
-  .page {
-    width: 320px;
-    height: 2524px;
-  }
-}

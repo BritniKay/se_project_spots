@@ -11,34 +11,19 @@
   margin: 0;
   padding: 20px 0 36px 0;
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
-  gap: 20px;
+  gap: 40px 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 627px) {
   .cards__list {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, auto);
   }
 }
-
-@media screen and (max-width: 627px) {
-  .cards {
-    font-family: "Poppins", "noto-sans", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1;
-    text-align: left;
-  }
-
+@media screen and (max-width: 320px) {
   .cards__list {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, auto);
-    margin: auto;
-    padding: 20px 0;
-    max-width: 288px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 }
