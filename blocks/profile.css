@@ -127,4 +127,22 @@
     align-self: center;
     width: 100%;
   }
+
+  .profile__edit-btn {
+    padding: 0%;
+    margin: 32px 0 20px;
+  }
+
+  .profile__name {
+    -webkit-line-clamp: 1;
+    white-space: nowrap;
+    max-width: 260px;
+  }
+
+  .profile__description {
+    -webkit-line-clamp: 1;
+    max-width: 98px;
+    margin: 0 auto;
+    white-space: nowrap;
+  }
 }

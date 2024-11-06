@@ -51,3 +51,22 @@
 .card__like-button:hover {
   opacity: 1;
 }
+
+@media screen and (max-width: 627px) {
+  .card__img {
+    max-width: 413px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card__img {
+    width: 288px;
+    height: 288px;
+  }
+
+  .card__title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+}
