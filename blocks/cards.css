@@ -18,7 +18,6 @@
   .cards__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, 288px);
-    grid-template-rows: repeat(3, auto);
   }
 }
 @media screen and (max-width: 320px) {
