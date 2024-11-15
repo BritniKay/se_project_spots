@@ -60,6 +60,7 @@
   gap: 8px;
   border-radius: 90px 0px 0px 0px;
   padding: 18px 0 20px 0;
+  opacity: 0.7;
 }
 
 .profile__edit-btn:hover {
@@ -123,6 +124,10 @@
 }
 
 @media screen and (max-width: 320px) {
+  .profile {
+    gap: 0;
+  }
+
   .profile__add-btn {
     align-self: center;
     width: 100%;
@@ -135,9 +140,14 @@
 
   .profile__name {
     text-align: center;
+    font-size: 20px;
+    height: 60px;
+    margin: 0;
   }
 
   .profile__description {
     text-align: center;
+    font-size: 16px;
+    height: 49px;
   }
 }
