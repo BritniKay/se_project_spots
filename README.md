@@ -45,4 +45,4 @@ The way you'll do this at work is by exporting images directly from Figma — we
 Good luck and have fun!
 video! https://www.loom.com/share/6d295ab0d52948489766dae892a6d0ae
 
-Project GitHub link here! [git@github.com:BritniKay/se_project_spots.git](https://github.com/BritniKay/se_project_spots) Enjoy!
+Project GitHub link here!https://britnikay.github.io/se_project_spots/ Enjoy!
