@@ -28,7 +28,6 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   max-width: 420px;
-  min-height: 100px;
 }
 
 .profile__description {
@@ -127,10 +126,13 @@
   .profile {
     gap: 0;
     padding-top: 0;
+    margin-top: 20px;
   }
 
   .profile__avatar {
-    padding: 0 0 20px 0;
+    margin: 0 0 12px 0;
+    width: 80px;
+    height: 80px;
   }
 
   .profile__add-btn {
@@ -146,13 +148,11 @@
   .profile__name {
     text-align: center;
     font-size: 20px;
-    height: 60px;
-    margin: 0;
+    margin: 0 0 6px;
   }
 
   .profile__description {
     text-align: center;
     font-size: 16px;
-    height: 49px;
   }
 }

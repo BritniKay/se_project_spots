@@ -54,19 +54,12 @@
 
 @media screen and (max-width: 627px) {
   .card__img {
-    max-width: 413px;
-    min-height: 413px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .card__img {
-    width: 288px;
-    height: 288px;
+    max-width: 288px;
+    min-height: 288px;
   }
 
   .card__title {
-    font-size: 16px;
-    font-weight: 500;
+    max-width: 250px;
+    font-weight: 16px;
   }
 }
