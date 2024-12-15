@@ -25,18 +25,41 @@ const initialcards = [
   },
 ];
 
-const profileEditButton = document.querySelector(".profile__edit-btn");
+document.addEventListener("DOMContentLoaded", function () {
+  const profileName = document.querySelector(".profile__name");
+  const profileDescription = document.querySelector(".profile__description");
 
-const editModal = document.querySelector("#edit-modal");
-const editModalCloseBtn = editModal.querySelector(".modal__close-btn"); // Fixed selector
+  const inputName = document.querySelector("#profil-name-input");
+  const inputDescription = document.querySelector("#profile-description-input");
 
-function openModal() {
-  editModal.classList.add("modal_opened");
-}
+  const profileEditButton = document.querySelector(".profile__edit-btn");
+  const editModal = document.querySelector("#edit-modal");
+  const editModalCloseBtn = editModal.querySelector(".modal__close-btn");
+  const form = document.querySelector(".modal__form");
 
-function closeModal() {
-  editModal.classList.remove("modal_opened");
-}
+  function getFirstTwoWords(text) {
+    const words = text.trim().split(/\s+/);
+    return words.slice(0, 2).join(" ");
+  }
 
-profileEditButton.addEventListener("click", openModal);
-editModalCloseBtn.addEventListener("click", closeModal);
+  function openModal() {
+    inputName.value = profileName.textContent;
+    inputDescription.value = profileDescription.textContent;
+    editModal.classList.add("modal_opened");
+  }
+
+  function closeModal() {
+    editModal.classList.remove("modal_opened");
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    profileName.textContent = getFirstTwoWords(inputName.value);
+    profileDescription.textContent = getFirstTwoWords(inputDescription.value);
+    closeModal();
+  }
+
+  profileEditButton.addEventListener("click", openModal);
+  editModalCloseBtn.addEventListener("click", closeModal);
+  form.addEventListener("submit", handleFormSubmit);
+});

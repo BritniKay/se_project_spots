@@ -25,7 +25,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
+  white-space: nowrap;
+  width: 260px;
   -webkit-box-orient: vertical;
   max-width: 420px;
 }
@@ -43,8 +45,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+  white-space: nowrap;
+  width: 100px;
   max-width: 420px;
 }
 
@@ -58,7 +62,7 @@
   height: 16px;
   gap: 8px;
   border-radius: 90px 0px 0px 0px;
-  padding: 18px 0 20px 0;
+  padding: 113px 0 20px 0;
   opacity: 0.7;
 }
 
