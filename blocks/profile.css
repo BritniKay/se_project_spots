@@ -27,7 +27,6 @@
   display: -webkit-box;
   -webkit-line-clamp: 1;
   white-space: nowrap;
-  width: 260px;
   -webkit-box-orient: vertical;
   max-width: 420px;
 }
@@ -36,11 +35,9 @@
   margin: 0;
   font-family: "Poppins", "noto-sans", sans-serif;
   line-height: 1;
-  font-weight: bold;
   color: rgba(33, 33, 33, 70%);
   font-size: 16px;
   font-weight: 500;
-  line-height: 16px;
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -48,8 +45,12 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   white-space: nowrap;
-  width: 100px;
   max-width: 420px;
+  height: 20px;
+}
+
+.hidden__text {
+  display: none;
 }
 
 .profile__edit-btn {
