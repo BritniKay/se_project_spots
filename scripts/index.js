@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const profileEditButton = document.querySelector(".profile__edit-btn");
   const editModal = document.querySelector("#edit-modal");
   const editModalCloseBtn = editModal.querySelector(".modal__close-btn");
-  const form = document.querySelector(".modal__form");
+  const profileForm = document.forms["profile-form"];
 
   const cardsContainer = document.querySelector(".cards__list");
   const cardTemplate = document.querySelector("#card-template").content;
@@ -59,11 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     cardsContainer.appendChild(cardElement);
   });
 
-  function getFirstTwoWords(text) {
-    const words = text.trim().split(/\s+/);
-    return words.slice(0, 2).join(" ");
-  }
-
   function openModal() {
     inputName.value = profileNameFirst.textContent.trim();
     inputDescription.value = profileDescriptionFirst.textContent.trim();
@@ -85,5 +80,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
   profileEditButton.addEventListener("click", openModal);
   editModalCloseBtn.addEventListener("click", closeModal);
-  form.addEventListener("submit", handleFormSubmit);
+  profileForm.addEventListener("submit", handleFormSubmit);
 });
