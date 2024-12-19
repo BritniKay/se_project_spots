@@ -71,10 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    profileNameFirst.textContent = getFirstTwoWords(inputName.value);
-    profileDescriptionFirst.textContent = getFirstTwoWords(
-      inputDescription.value
-    );
+    profileNameFirst.textContent = inputName.value.trim();
+    profileDescriptionFirst.textContent = inputDescription.value.trim();
     closeModal();
   }
 

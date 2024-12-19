@@ -31,6 +31,10 @@
   max-width: 420px;
 }
 
+.profile__name-hidden-text {
+  display: none;
+}
+
 .profile__description {
   margin: 0;
   font-family: "Poppins", "noto-sans", sans-serif;
@@ -47,6 +51,10 @@
   white-space: nowrap;
   max-width: 420px;
   height: 20px;
+}
+
+.profile__description-hidden-text {
+  display: none;
 }
 
 .hidden__text {
