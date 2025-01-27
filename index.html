@@ -58,6 +58,11 @@
             <template id="card-template">
               <li class="card">
                 <img src="" alt="" class="card__img" />
+                <button
+                  class="card__delete-button"
+                  type="button"
+                  onclick="deleteImage(this)"
+                ></button>
                 <div class="card__content">
                   <h2 class="card__title"></h2>
                   <button type="button" class="card__like-button"></button>
@@ -70,6 +75,7 @@
       <footer class="footer">
         <p class="footer__content">2023 © Sports</p>
       </footer>
+
       <div class="modal" id="edit-modal">
         <div class="modal__container">
           <button type="button" class="modal__close-btn"></button>
@@ -95,6 +101,50 @@
             </label>
             <button type="submit" class="modal__submit-btn">Save</button>
           </form>
+        </div>
+      </div>
+
+      <div class="modal" id="add-card-modal">
+        <div class="modal__container">
+          <button type="button" class="modal__close-btn"></button>
+          <h2 class="modal__title">New post</h2>
+          <form name="add-card-form" id="add-card-form" class="modal__form">
+            <label for="profil-image-link" class="modal__label">
+              Image link
+              <input
+                id="profil-image-link"
+                type="url"
+                class="modal__input"
+                placeholder="Paste image link"
+              />
+            </label>
+            <label for="profile-caption-input" class="modal__label">
+              Caption
+              <input
+                id="profile-caption-input"
+                type="text"
+                class="modal__input"
+                placeholder="Type your caption"
+              />
+            </label>
+            <button type="submit" class="modal__submit-btn">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal" id="preview-modal">
+        <div class="modal__container modal__container_preview">
+          <button
+            type="button"
+            class="modal__close-btn modal__close-btn_preview"
+            aria-label="close modal"
+          ></button>
+          <img
+            class="modal__image modal__image_preview"
+            src="#"
+            alt="Preview Image"
+          />
+          <p class="modal__caption modal__caption_preview">Caption</p>
         </div>
       </div>
     </div>
