@@ -1,9 +1,10 @@
-document.addEventListener("DOMContentLoaded", function () {
-  function deleteImage(button) {
-    const card = button.closest(".card");
-    card.remove();
-  }
+// Define the deleteImage function in the global scope
+function deleteImage(button) {
+  const card = button.closest(".card");
+  card.remove();
+}
 
+document.addEventListener("DOMContentLoaded", function () {
   // Profile elements
   const profileNameFirst = document.querySelector(".profile__name-first");
   const profileDescriptionFirst = document.querySelector(
@@ -112,7 +113,16 @@ document.addEventListener("DOMContentLoaded", function () {
     closeModal(editModal);
   }
 
-  profileEditButton.addEventListener("click", () => openModal(editModal));
+  function populateProfileInputs() {
+    inputName.value = profileNameFirst.textContent.trim();
+    inputDescription.value = profileDescriptionFirst.textContent.trim();
+  }
+
+  profileEditButton.addEventListener("click", () => {
+    populateProfileInputs();
+    openModal(editModal);
+  });
+
   if (editModalCloseBtn) {
     editModalCloseBtn.addEventListener("click", () => closeModal(editModal));
   } else {

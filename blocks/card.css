@@ -64,11 +64,13 @@
   background-color: transparent;
   cursor: pointer;
   opacity: 40%;
+  background-repeat: no-repeat;
 }
 
 .card__like-button.liked {
   background-image: url(../images/State=Liked.svg);
   opacity: 100%;
+  background-color: transparent;
 }
 
 .card__like-button:hover {

@@ -173,9 +173,19 @@
     padding: 12px;
   }
 
+  .modal__container_preview {
+    background-color: transparent;
+    padding: 0%;
+    margin: 0%;
+  }
+
   .modal__title {
     margin: 4px 0 34px;
     font-size: 20px;
+  }
+
+  .modal__caption_preview {
+    padding: 10px;
   }
 
   .modal__close-btn {
@@ -183,16 +193,45 @@
     right: 12px;
   }
 
+  .modal__close-btn_preview {
+    top: -45px;
+    right: -3px;
+  }
+
   .modal__input {
     font-size: 16px;
   }
 
-  .modal__label {
+  .m .modal__label {
     font-size: 16px;
     margin-bottom: 24px;
   }
 
   .modal__submit-btn {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .modal__container_preview {
+    background-color: transparent;
+    padding: 0%;
+    margin: 0%;
+  }
+
+  .modal__caption_preview {
+    font-size: 16px;
+  }
+
+  .modal__close-btn {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -40px;
+    right: -10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 1;
   }
 }
