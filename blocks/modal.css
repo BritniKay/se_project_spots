@@ -79,7 +79,7 @@
   position: absolute;
   left: 0;
   top: calc(100% + 10px);
-  font-size: 16px;
+  font-size: 20px;
   color: white;
   text-align: left;
   background-color: rgba(0, 0, 0, 0.7);
@@ -107,7 +107,7 @@
 .modal__close-btn_preview {
   background-image: url(../images/close\ icon.svg);
   top: 0%;
-  right: -45px;
+  right: -48px;
   opacity: 1;
   background-color: transparent;
 }
@@ -221,24 +221,25 @@
 
   .modal__image_preview {
     width: 288px;
-    height: 426.57px;
-    top: 89px;
-    left: 16px;
+    height: 426px;
+    left: 6px;
     border-radius: 8px;
+    position: relative;
   }
 
   .modal__caption_preview {
     font-size: 16px;
+    left: 6px;
   }
 
   .modal__close-btn {
     width: 40px;
     height: 40px;
     position: absolute;
-    top: -40px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     z-index: 1;
+    right: 5px;
   }
 }

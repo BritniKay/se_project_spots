@@ -58,11 +58,7 @@
             <template id="card-template">
               <li class="card">
                 <img src="" alt="" class="card__img" />
-                <button
-                  class="card__delete-button"
-                  type="button"
-                  onclick="deleteImage(this)"
-                ></button>
+                <button class="card__delete-button" type="button"></button>
                 <div class="card__content">
                   <h2 class="card__title"></h2>
                   <button type="button" class="card__like-button"></button>
@@ -81,10 +77,10 @@
           <button type="button" class="modal__close-btn"></button>
           <h2 class="modal__title">Edit profile</h2>
           <form name="edit-profile" id="profile-form" class="modal__form">
-            <label for="profil-name-input" class="modal__label">
+            <label for="profile-name-input" class="modal__label">
               Name
               <input
-                id="profil-name-input"
+                id="profile-name-input"
                 type="text"
                 class="modal__input"
                 placeholder="Type your name"
@@ -109,10 +105,10 @@
           <button type="button" class="modal__close-btn"></button>
           <h2 class="modal__title">New post</h2>
           <form name="add-card-form" id="add-card-form" class="modal__form">
-            <label for="profil-image-link" class="modal__label">
+            <label for="profile-image-link" class="modal__label">
               Image link
               <input
-                id="profil-image-link"
+                id="profile-image-link"
                 type="url"
                 class="modal__input"
                 placeholder="Paste image link"
@@ -132,7 +128,7 @@
         </div>
       </div>
 
-      <div class="modal modal__preview" id="preview-modal">
+      <div class="modal" id="preview-modal">
         <div class="modal__container modal__container_preview">
           <button
             type="button"
