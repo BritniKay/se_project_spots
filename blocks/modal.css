@@ -213,6 +213,10 @@
 }
 
 @media screen and (max-width: 320px) {
+  .modal {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
   .modal__container_preview {
     background-color: transparent;
     padding: 0%;
@@ -220,16 +224,26 @@
   }
 
   .modal__image_preview {
-    width: 288px;
+    width: 106%;
     height: 426px;
-    left: 6px;
+    left: -10px;
     border-radius: 8px;
     position: relative;
   }
 
   .modal__caption_preview {
     font-size: 16px;
-    left: 6px;
+    width: 111;
+    height: 27;
+    top: 440px;
+    left: -10px;
+    padding: 10px;
+  }
+
+  .modal__close-btn_preview {
+    width: 40;
+    height: 40;
+    left: 264px;
   }
 
   .modal__close-btn {
@@ -240,6 +254,6 @@
     background-color: transparent;
     cursor: pointer;
     z-index: 1;
-    right: 5px;
+    right: 3px;
   }
 }
