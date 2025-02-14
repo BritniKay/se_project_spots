@@ -68,7 +68,7 @@
 }
 
 .card__like-button.liked {
-  background-image: url(../images/State=Liked.svg);
+  background-image: url(../images/heart\ liked.svg);
   opacity: 100%;
   background-color: transparent;
 }
