@@ -224,9 +224,9 @@
   }
 
   .modal__image_preview {
-    width: 288px;
+    width: 287px;
     height: 426px;
-    left: 5px;
+    left: 6px;
     border-radius: 8px;
     position: relative;
   }
