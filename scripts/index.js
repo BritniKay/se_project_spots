@@ -94,10 +94,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openModal(modal) {
     modal.classList.add("modal_opened");
+    document.addEventListener("keydown", handleEscClose);
   }
 
   function closeModal(modal) {
     modal.classList.remove("modal_opened");
+    document.removeEventListener("keydown", handleEscClose);
   }
 
   function handleProfileFormSubmit(event) {
@@ -115,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
   profileEditButton.addEventListener("click", () => {
     populateProfileInputs();
     openModal(profileEditModal);
+    resetForm(profileForm, settings);
   });
 
   profileForm.addEventListener("submit", handleProfileFormSubmit);
@@ -131,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
       link: inputCardImageLink.value.trim(),
     };
     renderCard(newCardData);
-    event.target.reset();
+    resetForm(addCardForm, settings);
     closeModal(addCardModal);
   }
 
@@ -145,5 +148,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.target === previewImageModal) {
       closeModal(previewImageModal);
     }
+  });
+
+  document.querySelectorAll(".modal").forEach((modal) => {
+    modal.addEventListener("click", (event) => {
+      if (event.target.classList.contains("modal")) {
+        closeModal(modal);
+      }
+    });
   });
 });

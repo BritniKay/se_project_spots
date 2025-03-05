@@ -65,6 +65,7 @@
   cursor: pointer;
   opacity: 40%;
   background-repeat: no-repeat;
+  padding-right: 15px;
 }
 
 .card__like-button.liked {
