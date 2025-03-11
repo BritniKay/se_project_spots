@@ -11,14 +11,14 @@ function showInputError(formElement, inputElement, errorMessage, config) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(config.errorClass); // Show error message
+  errorElement.classList.add(config.errorClass);
 }
 
 function hideInputError(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(config.inputErrorClass);
-  errorElement.classList.remove(config.errorClass); // Hide error message
-  errorElement.textContent = ""; // Clear error message text
+  errorElement.classList.remove(config.errorClass);
+  errorElement.textContent = "";
 }
 
 function checkInputValidity(formElement, inputElement, config) {
@@ -38,6 +38,7 @@ function setEventListeners(formElement, config) {
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
+      checkInputValidity(formElement, inputElement, config);
       toggleButtonState(inputList, buttonElement, config);
     });
   });
