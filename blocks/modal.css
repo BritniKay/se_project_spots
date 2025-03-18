@@ -189,6 +189,11 @@
   background-color: rgba(33, 33, 33, 0.8);
 }
 
+.modal__submit-btn_disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 627px) {
   .modal {
     padding: 0 10px;

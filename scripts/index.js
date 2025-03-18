@@ -16,9 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const addCardForm = document.forms["add-card-form"];
   const inputCardImageLink = document.querySelector("#profile-image-link");
   const inputCardCaption = document.querySelector("#profile-caption-input");
-  const errorCaptionMessage = document.querySelector(
-    "#profile-caption-input-error"
-  );
   const openAddCardModalButton = document.querySelector(".profile__add-btn");
   const previewImageModal = document.querySelector("#preview-modal");
   const previewImage = previewImageModal.querySelector(".modal__image");
@@ -71,10 +68,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function createCardElement(data) {
-    const cardElement = cardTemplate.cloneNode(true);
+    const cardElement = cardTemplate.cloneNode(true).firstElementChild;
     const cardTitle = cardElement.querySelector(".card__title");
     const cardImage = cardElement.querySelector(".card__img");
     const deleteButton = cardElement.querySelector(".card__delete-button");
+    const likeButton = cardElement.querySelector(".card__like-button");
 
     cardTitle.textContent = data.name;
     cardImage.src = data.link;
@@ -82,6 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     deleteButton.addEventListener("click", () => {
       cardElement.remove();
+    });
+    likeButton.addEventListener("click", (event) => {
+      event.target.classList.toggle("liked");
     });
 
     cardImage.addEventListener("click", () => {
@@ -117,59 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function showInputError(formElement, inputElement, errorMessage, config) {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.add(config.inputErrorClass);
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add(config.errorClass);
-  }
-
-  function hideInputError(formElement, inputElement, config) {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove(config.inputErrorClass);
-    errorElement.classList.remove(config.errorClass);
-    errorElement.textContent = "";
-  }
-
-  function checkInputValidity(formElement, inputElement, config) {
-    let errorMessage = "";
-
-    if (inputElement.validity.valueMissing) {
-      errorMessage = "This field is required.";
-    } else if (
-      inputElement.validity.typeMismatch &&
-      inputElement.type === "url"
-    ) {
-      errorMessage = "Please enter a valid URL, like https://example.com.";
-    } else if (inputElement.validity.tooShort) {
-      errorMessage = `Minimum length is ${inputElement.minLength} characters. You have entered ${inputElement.value.length}.`;
-    } else if (inputElement.validity.tooLong) {
-      errorMessage = `Maximum length is ${inputElement.maxLength} characters. Please shorten your input.`;
-    }
-
-    if (errorMessage) {
-      showInputError(formElement, inputElement, errorMessage, config);
-    } else {
-      hideInputError(formElement, inputElement, config);
-    }
-  }
-
-  function setEventListeners(formElement, config) {
-    const inputList = Array.from(
-      formElement.querySelectorAll(config.inputSelector)
-    );
-    const buttonElement = formElement.querySelector(
-      config.submitButtonSelector
-    );
-
-    inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
-        checkInputValidity(formElement, inputElement, config);
-        toggleButtonState(inputList, buttonElement, config);
-      });
-    });
-  }
-
   function toggleButtonState(inputList, buttonElement, config) {
     if (inputList.some((input) => !input.validity.valid)) {
       buttonElement.classList.add(config.inactiveButtonClass);
@@ -190,39 +138,41 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     inputList.forEach((inputElement) => {
-      hideInputError(formElement, inputElement, config);
+      const errorElement = formElement.querySelector(
+        `#${inputElement.id}-error`
+      );
+      inputElement.classList.remove(config.inputErrorClass);
+      errorElement.classList.remove(config.errorClass);
+      errorElement.textContent = "";
     });
 
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = true;
-  }
-
-  function enableValidation(config) {
-    const formList = Array.from(document.querySelectorAll(config.formSelector));
-    formList.forEach((formElement) => {
-      setEventListeners(formElement, config);
-
-      formElement.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const inputList = Array.from(
-          formElement.querySelectorAll(config.inputSelector)
-        );
-        inputList.forEach((inputElement) => {
-          checkInputValidity(formElement, inputElement, config);
-        });
-
-        if (formElement.checkValidity()) {
-          console.log("Form submitted successfully!");
-        }
-      });
-    });
+    toggleButtonState(inputList, buttonElement, config);
   }
 
   enableValidation(settings);
 
   profileEditButton.addEventListener("click", () => {
     resetForm(profileForm, settings);
+
+    inputProfileName.value = profileName.textContent.trim();
+    inputProfileDescription.value = profileDescription.textContent.trim();
+
+    const inputList = Array.from(
+      profileForm.querySelectorAll(settings.inputSelector)
+    );
+    const buttonElement = profileForm.querySelector(
+      settings.submitButtonSelector
+    );
+    toggleButtonState(inputList, buttonElement, settings);
+
+    inputProfileName.addEventListener("focus", () => {
+      inputProfileName.value = "";
+    });
+
+    inputProfileDescription.addEventListener("focus", () => {
+      inputProfileDescription.value = "";
+    });
+
     openModal(profileEditModal);
   });
 
@@ -237,6 +187,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   openAddCardModalButton.addEventListener("click", () => {
     resetForm(addCardForm, settings);
+
+    const inputList = Array.from(
+      addCardForm.querySelectorAll(settings.inputSelector)
+    );
+    const buttonElement = addCardForm.querySelector(
+      settings.submitButtonSelector
+    );
+    toggleButtonState(inputList, buttonElement, settings);
+
     openModal(addCardModal);
   });
 
@@ -256,12 +215,6 @@ document.addEventListener("DOMContentLoaded", function () {
   closeModalButtons.forEach((button) => {
     const modal = button.closest(".modal");
     button.addEventListener("click", () => closeModal(modal));
-  });
-
-  previewImageModal.addEventListener("click", (event) => {
-    if (event.target === previewImageModal) {
-      closeModal(previewImageModal);
-    }
   });
 
   document.querySelectorAll(".modal").forEach((modal) => {
