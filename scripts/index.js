@@ -118,37 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function toggleButtonState(inputList, buttonElement, config) {
-    if (inputList.some((input) => !input.validity.valid)) {
-      buttonElement.classList.add(config.inactiveButtonClass);
-      buttonElement.disabled = true;
-    } else {
-      buttonElement.classList.remove(config.inactiveButtonClass);
-      buttonElement.disabled = false;
-    }
-  }
-
-  function resetForm(formElement, config) {
-    formElement.reset();
-    const inputList = Array.from(
-      formElement.querySelectorAll(config.inputSelector)
-    );
-    const buttonElement = formElement.querySelector(
-      config.submitButtonSelector
-    );
-
-    inputList.forEach((inputElement) => {
-      const errorElement = formElement.querySelector(
-        `#${inputElement.id}-error`
-      );
-      inputElement.classList.remove(config.inputErrorClass);
-      errorElement.classList.remove(config.errorClass);
-      errorElement.textContent = "";
-    });
-
-    toggleButtonState(inputList, buttonElement, config);
-  }
-
   enableValidation(settings);
 
   profileEditButton.addEventListener("click", () => {
@@ -156,22 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     inputProfileName.value = profileName.textContent.trim();
     inputProfileDescription.value = profileDescription.textContent.trim();
-
-    const inputList = Array.from(
-      profileForm.querySelectorAll(settings.inputSelector)
-    );
-    const buttonElement = profileForm.querySelector(
-      settings.submitButtonSelector
-    );
-    toggleButtonState(inputList, buttonElement, settings);
-
-    inputProfileName.addEventListener("focus", () => {
-      inputProfileName.value = "";
-    });
-
-    inputProfileDescription.addEventListener("focus", () => {
-      inputProfileDescription.value = "";
-    });
 
     openModal(profileEditModal);
   });
@@ -186,8 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   openAddCardModalButton.addEventListener("click", () => {
-    resetForm(addCardForm, settings);
-
     const inputList = Array.from(
       addCardForm.querySelectorAll(settings.inputSelector)
     );
@@ -207,7 +158,10 @@ document.addEventListener("DOMContentLoaded", function () {
         link: inputCardImageLink.value.trim(),
       };
       renderCard(newCardData);
-      resetForm(addCardForm, settings);
+      disableButton(
+        addCardForm.querySelector(settings.submitButtonSelector),
+        settings.inactiveButtonClass
+      );
       closeModal(addCardModal);
     }
   });
