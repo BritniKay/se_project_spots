@@ -7,6 +7,11 @@ const settings = {
   errorClass: "modal__error_visible",
 };
 
+function disableButton(buttonElement, config) {
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.disabled = true;
+}
+
 function showInputError(formElement, inputElement, errorMessage, config) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(config.inputErrorClass);
@@ -46,8 +51,7 @@ function setEventListeners(formElement, config) {
 
 function toggleButtonState(inputList, buttonElement, config) {
   if (inputList.some((input) => !input.validity.valid)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = true;
+    disableButton(buttonElement, config);
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.disabled = false;
@@ -65,8 +69,7 @@ function resetForm(formElement, config) {
     hideInputError(formElement, inputElement, config);
   });
 
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.disabled = true;
+  disableButton(buttonElement, config);
 }
 
 function displayErrorsOnSubmit(formElement, config) {
