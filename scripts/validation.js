@@ -35,20 +35,6 @@ function checkInputValidity(formElement, inputElement, config) {
   }
 }
 
-function setEventListeners(formElement, config) {
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", () => {
-      checkInputValidity(formElement, inputElement, config);
-      toggleButtonState(inputList, buttonElement, config);
-    });
-  });
-}
-
 function toggleButtonState(inputList, buttonElement, config) {
   if (inputList.some((input) => !input.validity.valid)) {
     disableButton(buttonElement, config);
@@ -56,6 +42,22 @@ function toggleButtonState(inputList, buttonElement, config) {
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.disabled = false;
   }
+}
+
+function setEventListeners(formElement, config) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+
+  toggleButtonState(inputList, buttonElement, config);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", () => {
+      checkInputValidity(formElement, inputElement, config);
+      toggleButtonState(inputList, buttonElement, config);
+    });
+  });
 }
 
 function resetForm(formElement, config) {
@@ -72,16 +74,6 @@ function resetForm(formElement, config) {
   disableButton(buttonElement, config);
 }
 
-function displayErrorsOnSubmit(formElement, config) {
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
-
-  inputList.forEach((inputElement) => {
-    checkInputValidity(formElement, inputElement, config);
-  });
-}
-
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
@@ -89,7 +81,6 @@ function enableValidation(config) {
 
     formElement.addEventListener("submit", (event) => {
       event.preventDefault();
-      displayErrorsOnSubmit(formElement, config);
 
       if (formElement.checkValidity()) {
         console.log("Form submitted successfully!");
