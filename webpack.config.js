@@ -36,7 +36,7 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/,
+        test: /\.(png|svg|jpg|jpeg|webp|gif)$/,
         type: "asset/resource",
         generator: {
           filename: "images/[name][ext]",
@@ -65,7 +65,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: "[name].css", // Ensures CSS is extracted in `dist/`
+      filename: "[name].css",
     }),
   ],
 };

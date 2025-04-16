@@ -7,6 +7,16 @@ export const settings = {
   errorClass: "modal__error_visible",
 };
 
+// Define validation configuration separately
+export const validationconfig = {
+  allowEmptyFields: false,
+  validateOnBlur: true,
+  errorMessages: {
+    required: "This field is required.",
+    invalidFormat: "Invalid format.",
+  },
+};
+
 export function getErrorElement(inputElement) {
   return document.querySelector(`#${inputElement.id}-error`);
 }

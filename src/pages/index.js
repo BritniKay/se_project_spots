@@ -1,6 +1,11 @@
-import "../pages/index.css";
+import "./index.css";
 import "../images/favicon.ico";
 import "../vendor/normalize.css";
+
+// Select the element and set the src
+const stepsImage = document.getElementById("image-steps");
+stepsImage.src = stepsSrc;
+
 import {
   enableValidation,
   settings,
@@ -48,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function createCardElement(data) {
     console.log("Creating card element with data:", data);
-
     const cardElement = cardTemplate.cloneNode(true).firstElementChild;
     const cardTitle = cardElement.querySelector(".card__title");
     const cardImage = cardElement.querySelector(".card__img");
@@ -77,25 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return cardElement;
   }
 
-  function openModal(modal) {
-    modal.classList.add("modal_opened");
-    document.addEventListener("keydown", handleEscClose);
-  }
-
-  function closeModal(modal) {
-    modal.classList.remove("modal_opened");
-    document.removeEventListener("keydown", handleEscClose);
-  }
-
-  function handleEscClose(event) {
-    if (event.key === "Escape") {
-      const openedModal = document.querySelector(".modal_opened");
-      if (openedModal) {
-        closeModal(openedModal);
-      }
-    }
-  }
-
   enableValidation(settings);
 
   profileEditButton.addEventListener("click", () => {
@@ -118,13 +103,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   addCardForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    console.log("Form submitted");
     const newCardData = {
       name: inputCardCaption.value.trim(),
       link: inputCardImageLink.value.trim(),
     };
-    console.log("New card data:", newCardData);
-
     if (!newCardData.name || !newCardData.link) return;
     renderCard(newCardData);
     addCardForm.reset();
@@ -135,13 +117,5 @@ document.addEventListener("DOMContentLoaded", function () {
   closeModalButtons.forEach((button) => {
     const modal = button.closest(".modal");
     button.addEventListener("click", () => closeModal(modal));
-  });
-
-  document.querySelectorAll(".modal").forEach((modal) => {
-    modal.addEventListener("mousedown", (event) => {
-      if (event.target === modal) {
-        closeModal(modal);
-      }
-    });
   });
 });

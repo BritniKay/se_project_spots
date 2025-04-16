@@ -6,51 +6,42 @@
     <meta name="description" content="Spots - Share your favorite locations" />
     <meta name="author" content="Britni Ellis" />
     <meta name="keywords" content="HTML, CSS, JavaScript, Webpack" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/Logo.svg" alt="Spots Logo" class="header__logo" />
+        <img id="logo" alt="Spots Logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/avatar.jpg"
+            id="profile-avatar"
             alt="Bessie Coleman"
             class="profile__avatar"
           />
           <div class="profile__column">
             <h2 class="profile__name">
               <span class="profile__name-first">Bessie Coleman</span>
-              <span class="profile__name-hidden-text"
-                >Damala Bouga Time Bongo Puru Nacka Lu Lu Lu Badara Akon</span
-              >
+              <span class="profile__name-hidden-text">
+                Damala Bouga Time Bongo Puru Nacka Lu Lu Lu Badara Akon
+              </span>
             </h2>
             <p class="profile__description">
               <span class="profile__description-first">Civil Aviator</span>
-              <span class="profile__description-hidden-text"
-                >mononymously as Akon (/ˈeɪkɒn/), is a Senegalese-American
-                singer, record producer, and entrepreneur.</span
-              >
+              <span class="profile__description-hidden-text">
+                Mononymously known as Akon, a Senegalese-American singer, record
+                producer, and entrepreneur.
+              </span>
             </p>
             <button type="button" class="profile__edit-btn">
-              <img
-                src="./images/edit__pen.svg"
-                alt="Edit profile"
-                class="profile__pencil"
-              />
+              <img id="edit-icon" alt="Edit profile" class="profile__pencil" />
               Edit profile
             </button>
           </div>
           <button type="button" class="profile__add-btn">
-            <img
-              src="./images/plus__icon.svg"
-              alt="New post"
-              class="profile__add-icon"
-            />
+            <img id="add-post-icon" alt="New post" class="profile__add-icon" />
             New post
           </button>
         </section>
@@ -58,7 +49,7 @@
           <ul class="cards__list">
             <template id="card-template">
               <li class="card">
-                <img src="" alt="" class="card__img" />
+                <img id="card-image" alt="Card Image" class="card__img" />
                 <button class="card__delete-button" type="button"></button>
                 <div class="card__content">
                   <h2 class="card__title"></h2>
@@ -70,9 +61,8 @@
         </section>
       </main>
       <footer class="footer">
-        <p class="footer__content">2023 © Spots</p>
+        <p class="footer__content">2025 © Spots</p>
       </footer>
-
       <div class="modal" id="edit-modal">
         <div class="modal__container">
           <button type="button" class="modal__close-btn"></button>
@@ -116,7 +106,6 @@
           </form>
         </div>
       </div>
-
       <div class="modal" id="add-card-modal">
         <div class="modal__container">
           <button type="button" class="modal__close-btn"></button>
@@ -158,7 +147,6 @@
           </form>
         </div>
       </div>
-
       <div class="modal" id="preview-modal">
         <div class="modal__container modal__container_preview">
           <button
@@ -167,14 +155,13 @@
             aria-label="close modal"
           ></button>
           <img
+            id="preview-image"
             class="modal__image modal__image_preview"
-            src="#"
             alt="Preview Image"
           />
           <p class="modal__caption modal__caption_preview">Caption</p>
         </div>
       </div>
     </div>
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
