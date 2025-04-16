@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
-    publicPath: "",
+    publicPath: "/",
   },
   mode: "development",
   devtool: "inline-source-map",
@@ -29,14 +29,14 @@ module.exports = {
       {
         test: /\.js$/,
         loader: "babel-loader",
-        exclude: "/node_modules/",
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|webp|gif)$/,
+        test: /\.(png|svg|jpg|jpeg|webp|gif)$/i,
         type: "asset/resource",
         generator: {
           filename: "images/[name][ext]",
@@ -56,11 +56,19 @@ module.exports = {
           filename: "fonts/[name][ext]",
         },
       },
+      {
+        test: /\.ejs$/,
+        loader: "ejs-loader",
+        options: {
+          esModule: false,
+        },
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      inject: true,
       favicon: path.resolve(__dirname, "src/images/favicon.ico"),
     }),
     new CleanWebpackPlugin(),

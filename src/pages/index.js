@@ -1,11 +1,20 @@
+// Import styles
 import "./index.css";
-import "../images/favicon.ico";
 import "../vendor/normalize.css";
 
-// Select the element and set the src
-const stepsImage = document.getElementById("image-steps");
-stepsImage.src = stepsSrc;
+// Explicitly import images to ensure Webpack handles them correctly
+import profileAvatar from "../images/profile-avatar.jpg";
+import editIcon from "../images/edit-icon.svg";
+import addPostIcon from "../images/add-post-icon.svg";
+import previewImage from "../images/preview-image.png";
 
+// Set image sources properly
+document.querySelector(".profile__avatar").src = profileAvatar;
+document.querySelector(".profile__pencil").src = editIcon;
+document.querySelector(".profile__add-icon").src = addPostIcon;
+document.querySelector(".modal__image_preview").src = previewImage;
+
+// Validation Imports & Configuration
 import {
   enableValidation,
   settings,
@@ -33,14 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const inputCardCaption = document.querySelector("#profile-caption-input");
   const openAddCardModalButton = document.querySelector(".profile__add-btn");
   const previewImageModal = document.querySelector("#preview-modal");
-  const previewImage = previewImageModal.querySelector(".modal__image");
   const previewCaption = previewImageModal.querySelector(".modal__caption");
   const closeModalButtons = document.querySelectorAll(".modal__close-btn");
-
-  function disableButton(buttonElement, config) {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = true;
-  }
 
   function renderCard(item, method = "prepend") {
     if (!item.name || !item.link) return;
@@ -58,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cardImage = cardElement.querySelector(".card__img");
 
     cardTitle.textContent = data.name;
-    cardImage.src = require(`../images/${data.link}`);
+    cardImage.src = data.link;
     cardImage.alt = data.name;
 
     console.log("Image set to:", cardImage.src);
@@ -72,8 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     cardImage.addEventListener("click", () => {
-      previewImage.src = require(`../images/${data.link}`);
-      previewImage.alt = data.name;
+      previewImageModal.querySelector(".modal__image_preview").src = data.link;
       previewCaption.textContent = data.name;
       openModal(previewImageModal);
     });

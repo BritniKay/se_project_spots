@@ -6,18 +6,26 @@
     <meta name="description" content="Spots - Share your favorite locations" />
     <meta name="author" content="Britni Ellis" />
     <meta name="keywords" content="HTML, CSS, JavaScript, Webpack" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="<%= require('./images/favicon.ico') %>"
+    />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img id="logo" alt="Spots Logo" class="header__logo" />
+        <img
+          src="<%= require('./images/Logo.svg') %>"
+          alt="Spots Logo"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile page__section">
           <img
-            id="profile-avatar"
+            src="<%= require('./images/profile-avatar.jpg') %>"
             alt="Bessie Coleman"
             class="profile__avatar"
           />
@@ -36,12 +44,20 @@
               </span>
             </p>
             <button type="button" class="profile__edit-btn">
-              <img id="edit-icon" alt="Edit profile" class="profile__pencil" />
+              <img
+                src="<%= require('./images/edit-icon.svg') %>"
+                alt="Edit profile"
+                class="profile__pencil"
+              />
               Edit profile
             </button>
           </div>
           <button type="button" class="profile__add-btn">
-            <img id="add-post-icon" alt="New post" class="profile__add-icon" />
+            <img
+              src="<%= require('./images/add-post-icon.svg') %>"
+              alt="New post"
+              class="profile__add-icon"
+            />
             New post
           </button>
         </section>
@@ -49,7 +65,11 @@
           <ul class="cards__list">
             <template id="card-template">
               <li class="card">
-                <img id="card-image" alt="Card Image" class="card__img" />
+                <img
+                  src="<%= require('./images/card-image.png') %>"
+                  alt="Card Image"
+                  class="card__img"
+                />
                 <button class="card__delete-button" type="button"></button>
                 <div class="card__content">
                   <h2 class="card__title"></h2>
@@ -155,7 +175,7 @@
             aria-label="close modal"
           ></button>
           <img
-            id="preview-image"
+            src="<%= require('./images/preview-image.png') %>"
             class="modal__image modal__image_preview"
             alt="Preview Image"
           />
