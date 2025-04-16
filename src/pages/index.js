@@ -2,18 +2,6 @@
 import "./index.css";
 import "../vendor/normalize.css";
 
-// Explicitly import images to ensure Webpack handles them correctly
-import profileAvatar from "../images/profile-avatar.jpg";
-import editIcon from "../images/edit-icon.svg";
-import addPostIcon from "../images/add-post-icon.svg";
-import previewImage from "../images/preview-image.png";
-
-// Set image sources properly
-document.querySelector(".profile__avatar").src = profileAvatar;
-document.querySelector(".profile__pencil").src = editIcon;
-document.querySelector(".profile__add-icon").src = addPostIcon;
-document.querySelector(".modal__image_preview").src = previewImage;
-
 // Validation Imports & Configuration
 import {
   enableValidation,

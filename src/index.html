@@ -9,7 +9,7 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="<%= require('./images/favicon.ico') %>"
+      href="<%=require('./images/favicon.ico')%>"
     />
     <title>Spots</title>
   </head>
@@ -17,7 +17,7 @@
     <div class="page">
       <header class="header">
         <img
-          src="<%= require('./images/Logo.svg') %>"
+          src="<%=require('./images/Logo.svg')%>"
           alt="Spots Logo"
           class="header__logo"
         />
@@ -25,7 +25,7 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="<%= require('./images/profile-avatar.jpg') %>"
+            src="<%=require('./images/profile-avatar.jpg')%>"
             alt="Bessie Coleman"
             class="profile__avatar"
           />
@@ -45,7 +45,7 @@
             </p>
             <button type="button" class="profile__edit-btn">
               <img
-                src="<%= require('./images/edit-icon.svg') %>"
+                src="<%=require('./images/edit__pen.svg')%>"
                 alt="Edit profile"
                 class="profile__pencil"
               />
@@ -54,7 +54,7 @@
           </div>
           <button type="button" class="profile__add-btn">
             <img
-              src="<%= require('./images/add-post-icon.svg') %>"
+              src="<%=require('./images/plus_icon.svg')%>"
               alt="New post"
               class="profile__add-icon"
             />
@@ -66,7 +66,7 @@
             <template id="card-template">
               <li class="card">
                 <img
-                  src="<%= require('./images/card-image.png') %>"
+                  src="<%=require('./images/card-image.png')%>"
                   alt="Card Image"
                   class="card__img"
                 />
@@ -175,7 +175,7 @@
             aria-label="close modal"
           ></button>
           <img
-            src="<%= require('./images/preview-image.png') %>"
+            src="<%=require('./images/preview-image.png')%>"
             class="modal__image modal__image_preview"
             alt="Preview Image"
           />
