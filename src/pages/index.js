@@ -8,27 +8,31 @@ import {
   toggleButtonState,
 } from "../scripts/validation.js";
 
-import profileAvatar from "../images/avatar.jpg";
-import editIcon from "../images/edit__pen.svg";
-import addPostIcon from "../images/plus__icon.svg";
-import previewImage from "../images/preview-image.png";
-import logo from "../images/Logo.svg";
-import favicon from "../images/favicon.ico";
-
-document.querySelector(".profile__avatar").src = profileAvatar;
-document.querySelector(".profile__pencil").src = editIcon;
-document.querySelector(".profile__add-icon").src = addPostIcon;
-document.querySelector(".modal__image_preview").src = previewImage;
-document.querySelector(".header__logo").src = logo;
-document.querySelector("link[rel='icon']").href = favicon;
-
 const initialCards = [
-  { name: "Beautiful Lake", link: "./images/lake.jpg" },
-  { name: "Sunny Beach", link: "./images/beach.jpg" },
-  { name: "City Skyline", link: "./images/skyline.jpg" },
-  { name: "Forest Path", link: "./images/forest.jpg" },
-  { name: "Mountain View", link: "./images/mountain.jpg" },
-  { name: "Snowy Village", link: "./images/village.jpg" },
+  {
+    name: "Val Thorens",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
+  },
+  {
+    name: "Restaurant terrace",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
+  },
+  {
+    name: "An outdoor cafe",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
+  },
+  {
+    name: "A very long bridge, over the forest and through the trees",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+  },
+  {
+    name: "Tunnel with morning light",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
+  },
+  {
+    name: "Mountain house",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
+  },
 ];
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -51,8 +55,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const inputCardCaption = document.querySelector("#profile-caption-input");
   const openAddCardModalButton = document.querySelector(".profile__add-btn");
   const previewImageModal = document.querySelector("#preview-modal");
-  const previewCaption = previewImageModal.querySelector(".modal__caption");
+  const previewImage = previewImageModal?.querySelector(
+    ".modal__image_preview"
+  );
+  const previewCaption = previewImageModal?.querySelector(".modal__caption");
   const closeModalButtons = document.querySelectorAll(".modal__close-btn");
+
+  function openModal(modal) {
+    if (!modal) return;
+    modal.classList.add("modal_opened");
+  }
+
+  function closeModal(modal) {
+    if (!modal) return;
+    modal.classList.remove("modal_opened");
+  }
 
   function renderInitialCards() {
     initialCards.forEach((cardData) => renderCard(cardData, "append"));
@@ -84,9 +101,12 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     cardImage.addEventListener("click", () => {
-      previewImageModal.querySelector(".modal__image_preview").src = data.link;
-      previewCaption.textContent = data.name;
-      openModal(previewImageModal);
+      if (previewImageModal && previewImage && previewCaption) {
+        previewImage.src = data.link;
+        previewImage.alt = data.name;
+        previewCaption.textContent = data.name;
+        openModal(previewImageModal);
+      }
     });
 
     return cardElement;
@@ -121,13 +141,21 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!newCardData.name || !newCardData.link) return;
     renderCard(newCardData);
     addCardForm.reset();
-    disableButton(event.submitter, settings);
     closeModal(addCardModal);
   });
 
   closeModalButtons.forEach((button) => {
     const modal = button.closest(".modal");
     button.addEventListener("click", () => closeModal(modal));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      const openModal = document.querySelector(".modal_opened");
+      if (openModal) {
+        closeModal(openModal);
+      }
+    }
   });
 
   renderInitialCards();
