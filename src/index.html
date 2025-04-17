@@ -25,7 +25,7 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="<%=require('./images/profile-avatar.jpg')%>"
+            src="<%=require('./images/avatar.jpg')%>"
             alt="Bessie Coleman"
             class="profile__avatar"
           />
@@ -54,7 +54,7 @@
           </div>
           <button type="button" class="profile__add-btn">
             <img
-              src="<%=require('./images/plus_icon.svg')%>"
+              src="<%=require('./images/plus__icon.svg')%>"
               alt="New post"
               class="profile__add-icon"
             />
@@ -65,11 +65,7 @@
           <ul class="cards__list">
             <template id="card-template">
               <li class="card">
-                <img
-                  src="<%=require('./images/card-image.png')%>"
-                  alt="Card Image"
-                  class="card__img"
-                />
+                <img alt="Card Image" class="card__img" />
                 <button class="card__delete-button" type="button"></button>
                 <div class="card__content">
                   <h2 class="card__title"></h2>
@@ -174,11 +170,7 @@
             class="modal__close-btn modal__close-btn_preview"
             aria-label="close modal"
           ></button>
-          <img
-            src="<%=require('./images/preview-image.png')%>"
-            class="modal__image modal__image_preview"
-            alt="Preview Image"
-          />
+          <img class="modal__image modal__image_preview" alt="Preview Image" />
           <p class="modal__caption modal__caption_preview">Caption</p>
         </div>
       </div>
