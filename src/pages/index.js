@@ -1,14 +1,35 @@
-// Import styles
 import "./index.css";
 import "../vendor/normalize.css";
 
-// Validation Imports & Configuration
 import {
   enableValidation,
   settings,
   resetForm,
   toggleButtonState,
 } from "../scripts/validation.js";
+
+import profileAvatar from "../images/avatar.jpg";
+import editIcon from "../images/edit__pen.svg";
+import addPostIcon from "../images/plus__icon.svg";
+import previewImage from "../images/preview-image.png";
+import logo from "../images/Logo.svg";
+import favicon from "../images/favicon.ico";
+
+document.querySelector(".profile__avatar").src = profileAvatar;
+document.querySelector(".profile__pencil").src = editIcon;
+document.querySelector(".profile__add-icon").src = addPostIcon;
+document.querySelector(".modal__image_preview").src = previewImage;
+document.querySelector(".header__logo").src = logo;
+document.querySelector("link[rel='icon']").href = favicon;
+
+const initialCards = [
+  { name: "Beautiful Lake", link: "./images/lake.jpg" },
+  { name: "Sunny Beach", link: "./images/beach.jpg" },
+  { name: "City Skyline", link: "./images/skyline.jpg" },
+  { name: "Forest Path", link: "./images/forest.jpg" },
+  { name: "Mountain View", link: "./images/mountain.jpg" },
+  { name: "Snowy Village", link: "./images/village.jpg" },
+];
 
 document.addEventListener("DOMContentLoaded", function () {
   const profileName = document.querySelector(".profile__name-first");
@@ -33,17 +54,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const previewCaption = previewImageModal.querySelector(".modal__caption");
   const closeModalButtons = document.querySelectorAll(".modal__close-btn");
 
-  function renderCard(item, method = "prepend") {
-    if (!item.name || !item.link) return;
-    console.log("Rendering card:", item);
-    const cardElement = createCardElement(item);
+  function renderInitialCards() {
+    initialCards.forEach((cardData) => renderCard(cardData, "append"));
+  }
+
+  function renderCard(data, method = "prepend") {
+    if (!data.name || !data.link) return;
+    const cardElement = createCardElement(data);
     method === "prepend"
       ? cardsContainer.prepend(cardElement)
       : cardsContainer.append(cardElement);
   }
 
   function createCardElement(data) {
-    console.log("Creating card element with data:", data);
     const cardElement = cardTemplate.cloneNode(true).firstElementChild;
     const cardTitle = cardElement.querySelector(".card__title");
     const cardImage = cardElement.querySelector(".card__img");
@@ -51,8 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
     cardTitle.textContent = data.name;
     cardImage.src = data.link;
     cardImage.alt = data.name;
-
-    console.log("Image set to:", cardImage.src);
 
     const deleteButton = cardElement.querySelector(".card__delete-button");
     const likeButton = cardElement.querySelector(".card__like-button");
@@ -108,4 +129,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = button.closest(".modal");
     button.addEventListener("click", () => closeModal(modal));
   });
+
+  renderInitialCards();
 });
