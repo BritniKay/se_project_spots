@@ -4,8 +4,9 @@
   "description": "Describe the project",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
     "dev": "webpack serve --mode development",
+    "start": "npm run dev",
+    "build": "webpack --mode production",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
@@ -25,9 +26,11 @@
     "postcss-loader": "7.0.1",
     "webpack": "^5.99.5",
     "webpack-cli": "4.10.0",
-    "webpack-dev-server": "4.9.3"
+    "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
-    "core-js": "3.23.5"
+    "core-js": "3.23.5",
+    "node-jq": "^6.0.1",
+    "npm": "^11.3.0"
   }
 }
