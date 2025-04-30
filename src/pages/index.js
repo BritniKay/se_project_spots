@@ -34,6 +34,17 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "402df489-8b33-4cc5-a119-272d843e9751",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getinitialCards().then((cards) => {
+  console.log(cards);
+});
 
 document.addEventListener("DOMContentLoaded", function () {
   const profileName = document.querySelector(".profile__name-first");

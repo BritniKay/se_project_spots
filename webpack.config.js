@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
-    publicPath: "/",
+    publicPath: "/se_project_spots/",
   },
   mode: "development",
   devtool: "inline-source-map",
@@ -69,7 +69,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       inject: true,
-      favicon: path.resolve(__dirname, "src/images/favicon.ico"),
+      favicon: path.resolve(__dirname, "./src/images/favicon.ico"),
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
