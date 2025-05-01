@@ -10,20 +10,11 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
-    publicPath: "/",
+    publicPath: "",
   },
-  mode: "development",
-  devtool: "inline-source-map",
+  mode: "production",
+  devtool: "source-map",
   stats: "errors-only",
-  devServer: {
-    static: path.resolve(__dirname, "./dist"),
-    compress: true,
-    port: 8080,
-    open: true,
-    liveReload: true,
-    hot: false,
-  },
-  target: ["web", "es5"],
   module: {
     rules: [
       {
