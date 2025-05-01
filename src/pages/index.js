@@ -1,6 +1,6 @@
 import "./index.css";
 import "../vendor/normalize.css";
-
+import Api from "../scripts/Api.js";
 import {
   enableValidation,
   settings,
@@ -35,6 +35,18 @@ const initialCards = [
   },
 ];
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "402df489-8b33-4cc5-a119-272d843e9751",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getInitialCards().then((cards) => {
+  console.log(cards);
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const profileName = document.querySelector(".profile__name-first");
   const profileDescription = document.querySelector(
@@ -44,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const inputProfileDescription = document.querySelector(
     "#profile-description-input"
   );
+
   const profileEditButton = document.querySelector(".profile__edit-btn");
   const profileEditModal = document.querySelector("#edit-modal");
   const profileForm = document.forms["profile-form"];
