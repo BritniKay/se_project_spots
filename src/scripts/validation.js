@@ -28,6 +28,10 @@ export function showInputError(
   config
 ) {
   const errorElement = getErrorElement(inputElement);
+  if (!errorElement) {
+    console.error(`Error: No error element found for ${inputElement.id}`);
+    return;
+  }
   inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(config.errorClass);
@@ -36,6 +40,7 @@ export function showInputError(
 
 export function hideInputError(formElement, inputElement, config) {
   const errorElement = getErrorElement(inputElement);
+  if (!errorElement) return;
   inputElement.classList.remove(config.inputErrorClass);
   errorElement.classList.remove(config.errorClass);
   errorElement.textContent = "";
@@ -64,6 +69,12 @@ export function debounce(func, delay = 300) {
 }
 
 export function setEventListeners(formElement, config) {
+  if (!formElement) {
+    console.error(
+      "Error: formElement is undefined, cannot set event listeners."
+    );
+    return;
+  }
   const inputList = Array.from(
     formElement.querySelectorAll(config.inputSelector)
   );
@@ -82,11 +93,21 @@ export function setEventListeners(formElement, config) {
 
 export function toggleButtonState(inputList, buttonElement, config) {
   const isFormInvalid = inputList.some((input) => !input.validity.valid);
+  if (!buttonElement) {
+    console.error(
+      "Error: buttonElement is undefined, cannot toggle button state."
+    );
+    return;
+  }
   buttonElement.classList.toggle(config.inactiveButtonClass, isFormInvalid);
   buttonElement.disabled = isFormInvalid;
 }
 
 export function resetForm(formElement, config) {
+  if (!formElement) {
+    console.error("Error: resetForm called with undefined formElement.");
+    return;
+  }
   formElement.reset();
   const inputList = Array.from(
     formElement.querySelectorAll(config.inputSelector)
@@ -96,11 +117,21 @@ export function resetForm(formElement, config) {
   inputList.forEach((inputElement) =>
     hideInputError(formElement, inputElement, config)
   );
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.disabled = true;
+  if (buttonElement) {
+    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.disabled = true;
+  } else {
+    console.error("Error: buttonElement not found during form reset.");
+  }
 }
 
 export function displayErrorsOnSubmit(formElement, config) {
+  if (!formElement) {
+    console.error(
+      "Error: displayErrorsOnSubmit called with undefined formElement."
+    );
+    return;
+  }
   const inputList = Array.from(
     formElement.querySelectorAll(config.inputSelector)
   );

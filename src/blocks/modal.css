@@ -32,13 +32,17 @@
   padding: 0 20px;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s linear 0.3s, opacity 0.3s;
+  transition:
+    visibility 0s linear 0.3s,
+    opacity 0.3s;
 }
 
 .modal.modal_opened {
   visibility: visible;
   opacity: 1;
-  transition: visibility 0s linear 0s, opacity 0.3s;
+  transition:
+    visibility 0s linear 0s,
+    opacity 0.3s;
   animation: fadeIn 0.3s ease-in;
 }
 

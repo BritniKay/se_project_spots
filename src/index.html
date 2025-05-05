@@ -32,9 +32,9 @@
           <div class="profile__column">
             <h2 class="profile__name">
               <span class="profile__name-first">Bessie Coleman</span>
-              <span class="profile__name-hidden-text">
-                Damala Bouga Time Bongo Puru Nacka Lu Lu Lu Badara Akon
-              </span>
+              <span class="profile__name-hidden-text"
+                >Damala Bouga Time Bongo Puru Nacka Lu Lu Lu Badara Akon</span
+              >
             </h2>
             <p class="profile__description">
               <span class="profile__description-first">Civil Aviator</span>
@@ -79,6 +79,7 @@
       <footer class="footer">
         <p class="footer__content">2025 © Spots</p>
       </footer>
+
       <div class="modal" id="edit-modal">
         <div class="modal__container">
           <button type="button" class="modal__close-btn"></button>
@@ -122,6 +123,7 @@
           </form>
         </div>
       </div>
+
       <div class="modal" id="add-card-modal">
         <div class="modal__container">
           <button type="button" class="modal__close-btn"></button>
@@ -163,6 +165,7 @@
           </form>
         </div>
       </div>
+
       <div class="modal" id="preview-modal">
         <div class="modal__container modal__container_preview">
           <button
@@ -172,6 +175,36 @@
           ></button>
           <img class="modal__image modal__image_preview" alt="Preview Image" />
           <p class="modal__caption modal__caption_preview">Caption</p>
+        </div>
+      </div>
+
+      <!-- ✅ NEW: Delete Card Modal -->
+      <div class="modal" id="delete-card-modal">
+        <div class="modal__container">
+          <button type="button" class="modal__close-btn"></button>
+          <h2 class="modal__title">Are you sure?</h2>
+          <button
+            type="submit"
+            class="modal__submit-btn"
+            id="confirm-delete-btn"
+          >
+            Yes, delete
+          </button>
+        </div>
+      </div>
+
+      <!-- ✅ NEW: Delete Picture Modal -->
+      <div class="modal" id="delete-pic-modal">
+        <div class="modal__container">
+          <button type="button" class="modal__close-btn"></button>
+          <h2 class="modal__title">Delete this picture?</h2>
+          <button
+            type="submit"
+            class="modal__submit-btn"
+            id="confirm-delete-pic-btn"
+          >
+            Yes, delete
+          </button>
         </div>
       </div>
     </div>
