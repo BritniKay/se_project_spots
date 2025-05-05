@@ -1,7 +1,6 @@
-// Import required modules
 import "./index.css";
 import "../vendor/normalize.css";
-import Api from "../utils/Api.js"; // Import API class
+import Api from "../utils/Api.js";
 import {
   enableValidation,
   settings,
@@ -9,16 +8,14 @@ import {
   toggleButtonState,
 } from "../scripts/validation.js";
 
-// Create API instance
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "402df489-8b33-4cc5-a119-272d843e9751", // Your correct authorization code
+    authorization: "402df489-8b33-4cc5-a119-272d843e9751",
     "Content-Type": "application/json",
   },
 });
 
-// DOM Elements
 const profileName = document.querySelector(".profile__name-first");
 const profileDescription = document.querySelector(
   ".profile__description-first"
@@ -53,7 +50,6 @@ console.log("Profile Name Before API:", profileName?.textContent);
 console.log("Profile Description Before API:", profileDescription?.textContent);
 console.log("Profile Avatar Before API:", profileAvatar?.src);
 
-// Fetch User Data & Cards Together
 api
   .getAppData()
   .then(({ userData, cards }) => {
@@ -124,7 +120,6 @@ confirmDeleteButton.addEventListener("click", () => {
     .catch(console.error);
 });
 
-// ✅ Delete Picture Modal Logic
 function openDeletePicModal(picElement, picId) {
   if (!deletePicModal) {
     console.error("Error: Delete picture modal not found!");
