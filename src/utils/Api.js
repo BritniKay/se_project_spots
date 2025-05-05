@@ -34,6 +34,17 @@ class Api {
       .catch((error) => console.error("Error updating profile:", error));
   }
 
+  updateProfileAvatar(avatarUrl) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ avatar: avatarUrl }),
+    })
+      .then(this._checkResponse)
+      .then(() => this.getUserInfo()) // Fetch latest user data
+      .catch(console.error);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
       .then(this._checkResponse)
