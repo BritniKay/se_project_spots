@@ -106,7 +106,37 @@
 .modal__error_visible {
   display: block;
 }
+.modal__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 156px;
+  height: 52px;
+  margin-top: 20px;
+}
 
+.modal__submit-btn-delete {
+  background: rgba(255, 51, 51, 1);
+  flex: 1;
+  padding: 18px 0;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+}
+
+.modal__cancel-btn {
+  background-color: black;
+  color: white;
+  flex: 1;
+  padding: 18px 0;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+}
 .modal__close-btn {
   position: absolute;
   top: 32px;
@@ -192,6 +222,22 @@
 .modal__submit-btn_disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.modal__cancel-btn {
+  width: 156px;
+  padding: 18px 0;
+  background-color: rgba(33, 33, 33, 1);
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  gap: 8px;
+  padding: 18px, 32px;
+
+  border-width: 1px;
 }
 
 @media screen and (max-width: 627px) {
