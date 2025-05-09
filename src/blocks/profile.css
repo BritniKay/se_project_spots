@@ -135,7 +135,7 @@
   height: 12px;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 628px) {
   .profile {
     flex-direction: column;
     align-items: center;
@@ -159,7 +159,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 321px) {
   .profile {
     gap: 0;
     padding-top: 0;
