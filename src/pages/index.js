@@ -1,7 +1,6 @@
 import "./index.css";
 import "../vendor/normalize.css";
 import Api from "../utils/Api.js";
-import Api from "../utils/Api.js";
 import {
   enableValidation,
   settings,
