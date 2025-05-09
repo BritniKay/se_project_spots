@@ -511,7 +511,7 @@ template {
   height: 12px;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 628px) {
   .profile {
     flex-direction: column;
     align-items: center;
@@ -535,7 +535,7 @@ template {
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 321px) {
   .profile {
     gap: 0;
     padding-top: 0;
@@ -595,13 +595,13 @@ template {
   justify-content: center;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 628px) {
   .cards__list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 321px) {
   .cards__list {
     display: flex;
     flex-direction: column;
@@ -782,17 +782,13 @@ template {
   padding: 0 20px;
   visibility: hidden;
   opacity: 0;
-  transition:
-    visibility 0s linear 0.3s,
-    opacity 0.3s;
+  transition: visibility 0s linear 0.3s, opacity 0.3s;
 }
 
 .modal.modal_opened {
   visibility: visible;
   opacity: 1;
-  transition:
-    visibility 0s linear 0s,
-    opacity 0.3s;
+  transition: visibility 0s linear 0s, opacity 0.3s;
   animation: fadeIn 0.3s ease-in;
 }
 
@@ -1051,7 +1047,7 @@ template {
   font-size: 24px;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 628px) {
   .modal {
     padding: 0 10px;
   }
@@ -1099,7 +1095,7 @@ template {
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 321px) {
   .modal {
     background: rgba(0, 0, 0, 0.9);
   }
@@ -1120,16 +1116,16 @@ template {
 
   .modal__caption_preview {
     font-size: 16px;
-    width: 111;
-    height: 27;
+    width: 111px;
+    height: 27px;
     top: 440px;
     left: 5px;
     padding: 10px;
   }
 
   .modal__close-btn_preview {
-    width: 40;
-    height: 40;
+    width: 40px;
+    height: 40px;
     left: 255px;
   }
 
