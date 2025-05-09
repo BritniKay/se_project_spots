@@ -50,12 +50,12 @@
   background-color: #fff;
   padding: 32px 50px;
   max-width: 730px;
-  width: 100%;
   position: relative;
   box-sizing: border-box;
   border-radius: 8px;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 
@@ -110,7 +110,37 @@
 .modal__error_visible {
   display: block;
 }
+.modal__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 156px;
+  height: 52px;
+  margin-top: 20px;
+}
 
+.modal__submit-btn-delete {
+  background: rgba(255, 51, 51, 1);
+  flex: 1;
+  padding: 18px 0;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+}
+
+.modal__cancel-btn {
+  background-color: black;
+  color: white;
+  flex: 1;
+  padding: 18px 0;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+}
 .modal__close-btn {
   position: absolute;
   top: 32px;
@@ -196,6 +226,79 @@
 .modal__submit-btn_disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.modal__cancel-btn {
+  width: 156px;
+  padding: 18px 0;
+  background-color: rgba(33, 33, 33, 1);
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  gap: 8px;
+  padding: 18px, 32px;
+
+  border-width: 1px;
+}
+
+.modal__submit-btn-delete {
+  background: rgba(255, 51, 51, 1);
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  width: 156;
+  height: 52;
+  border-radius: 8px;
+  padding: 18px 32px;
+}
+
+.modal__submit-btn-delete:hover {
+  background: rgba(255, 101, 101, 1);
+}
+
+.modal__cancel-delete {
+  background: rgba(33, 33, 33, 1);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  background: rgba(33, 33, 33, 1);
+  width: 156px;
+  height: 52px;
+  padding: 18px 32px;
+}
+
+.modal__cancel-delete:hover {
+  background-color: #fff;
+  color: black;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.modal__close-btn-delete {
+  background-image: url(../images/white-close.svg);
+  top: 5%;
+  right: -350px;
+  opacity: 1;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  border: none;
+  cursor: pointer;
+}
+
+.modal__title-delete {
+  font-size: 24px;
 }
 
 @media screen and (max-width: 627px) {
