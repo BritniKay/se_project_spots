@@ -71,6 +71,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const deleteCardModal = document.querySelector("#delete-card-modal");
   const confirmDeleteButton = document.querySelector("#confirm-delete-btn");
   const closeModalButtons = document.querySelectorAll(".modal__close-btn");
+  const closeDeleteModalButton = document.querySelector(
+    ".modal__close-btn-delete"
+  );
+  const cancelDeleteButton = document.querySelector(".modal__cancel-delete");
   const previewImageModal = document.querySelector("#preview-modal");
   const previewImage = previewImageModal?.querySelector(
     ".modal__image_preview"
@@ -102,6 +106,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = button.closest(".modal");
     button.addEventListener("click", () => closeModal(modal));
   });
+
+  if (closeDeleteModalButton) {
+    closeDeleteModalButton.addEventListener("click", () => {
+      console.log("Close (X) button clicked in delete modal!");
+      closeModal(deleteCardModal);
+    });
+  }
+
+  if (cancelDeleteButton) {
+    cancelDeleteButton.addEventListener("click", () => {
+      console.log("Cancel button clicked in delete modal!");
+      closeModal(deleteCardModal);
+    });
+  }
 
   api
     .getUserInfo()
@@ -177,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!cardToDelete) return;
 
       api
-        .removeCard(cardToDelete.dataset.cardId) // ✅ Send DELETE request
+        .removeCard(cardToDelete.dataset.cardId)
         .then(() => {
           cardToDelete.remove();
           closeModal(deleteCardModal);
@@ -199,13 +217,33 @@ document.addEventListener("DOMContentLoaded", function () {
   if (profileForm) {
     profileForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (profileName && inputProfileName) {
-        profileName.textContent = inputProfileName.value.trim();
-      }
-      if (profileDescription && inputProfileDescription) {
-        profileDescription.textContent = inputProfileDescription.value.trim();
-      }
-      closeModal(profileEditModal);
+
+      const saveButton = profileForm.querySelector(".modal__submit-btn");
+      const originalText = saveButton.textContent;
+
+      saveButton.textContent = "Saving...";
+      saveButton.disabled = true;
+
+      api
+        .updateUserInfo({
+          name: inputProfileName.value.trim(),
+          about: inputProfileDescription.value.trim(),
+        })
+        .then(() => {
+          if (profileName && inputProfileName) {
+            profileName.textContent = inputProfileName.value.trim();
+          }
+          if (profileDescription && inputProfileDescription) {
+            profileDescription.textContent =
+              inputProfileDescription.value.trim();
+          }
+          closeModal(profileEditModal);
+        })
+        .catch(console.error)
+        .finally(() => {
+          saveButton.textContent = originalText;
+          saveButton.disabled = false;
+        });
     });
   }
 
