@@ -16,22 +16,6 @@ const api = new Api({
   },
 });
 
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "402df489-8b33-4cc5-a119-272d843e9751",
-    "Content-Type": "application/json",
-  },
-});
-
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "402df489-8b33-4cc5-a119-272d843e9751",
-    "Content-Type": "application/json",
-  },
-});
-
 api.getInitialCards().then((cards) => {
   console.log(cards);
 });
@@ -56,10 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const profileAvatarEditButton = document.querySelector(
     ".profile__avatar-edit"
   );
-  const profileAvatar = document.querySelector(".profile__avatar");
-  const profileAvatarEditButton = document.querySelector(
-    ".profile__avatar-edit"
-  );
+
   const inputProfileName = document.querySelector("#profile-name-input");
   const inputProfileDescription = document.querySelector(
     "#profile-description-input"
@@ -67,9 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const profileEditButton = document.querySelector(".profile__edit-btn");
   const profileEditModal = document.querySelector("#edit-modal");
   const profileForm = document.forms["profile-form"];
-  const editAvatarModal = document.querySelector("#edit-avatar-modal");
-  const avatarForm = document.forms["edit-avatar-form"];
-  const inputAvatarUrl = document.querySelector("#avatar-url-input");
   const editAvatarModal = document.querySelector("#edit-avatar-modal");
   const avatarForm = document.forms["edit-avatar-form"];
   const inputAvatarUrl = document.querySelector("#avatar-url-input");
