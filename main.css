@@ -1100,6 +1100,37 @@ template {
     background: rgba(0, 0, 0, 0.9);
   }
 
+  .modal__container {
+    max-width: 300px;
+    height: 263px;
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .modal__submit-btn {
+    padding: 12px 8px;
+    /* width: 495px; */
+    max-width: 73%;
+    left: 45px;
+    position: absolute;
+  }
+
+  .modal__input {
+    padding: 12px 8px;
+    font-size: 16px;
+    left: 50px;
+    position: absolute;
+  }
+
+  .modal__label {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .modal__error {
+    margin-bottom: 12px;
+  }
+
   .modal__container_preview {
     background-color: transparent;
     padding: 0%;
