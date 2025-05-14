@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cardTemplate = document.querySelector("#card-template").content;
   const addCardModal = document.querySelector("#add-card-modal");
   const addCardForm = document.forms["add-card-form"];
-  const inputCardImageLink = document.querySelector("#profile-image-link");
+  const inputCardImageLink = document.querySelector("#card-image-url-input");
   const inputCardCaption = document.querySelector("#profile-caption-input");
   const openAddCardModalButton = document.querySelector(".profile__add-btn");
   const deleteCardModal = document.querySelector("#delete-card-modal");
