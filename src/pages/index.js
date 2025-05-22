@@ -15,11 +15,23 @@ const api = new Api({
   },
 });
 
-api.getInitialCards().then((cards) => {
-  console.log(cards);
-});
+function renderInitialCards(cards) {
+  cards.forEach(renderCard);
+}
 
-/*
+api
+  .getInitialCards()
+  .then((cards) => {
+    console.log("Loaded Cards:", cards);
+
+    if (!Array.isArray(cards)) {
+      console.error("Error: Expected an array but received:", cards);
+      return;
+    }
+
+    renderInitialCards(cards);
+  })
+  .catch((error) => console.error("Error fetching initial cards:", error)); /*
 const initialCards = [
   { name: "Val Thorens", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg" },
   { name: "Restaurant terrace", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg" },
@@ -122,17 +134,24 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(console.error);
 
+  function renderInitialCards(cards) {
+    cards.forEach(renderCard);
+  }
+
   api
     .getInitialCards()
     .then((cards) => {
       console.log("Loaded Cards:", cards);
-      renderInitialCards(cards);
+
+      // Safety check before using cards
+      if (!Array.isArray(cards)) {
+        console.error("Error: Expected an array but received:", cards);
+        return;
+      }
+
+      renderInitialCards(cards); // Now it's defined before calling it!
     })
     .catch(console.error);
-
-  function renderInitialCards(cards) {
-    cards.forEach(renderCard);
-  }
 
   function renderCard(data, method = "prepend") {
     if (!data.name || !data.link) return;
@@ -152,6 +171,10 @@ document.addEventListener("DOMContentLoaded", function () {
     cardTitle.textContent = data.name;
     cardImage.src = data.link;
     cardImage.alt = data.name;
+
+    // ✅ Assign the card ID for delete functionality
+    cardElement.dataset.cardId = data._id;
+    console.log("Assigned card ID:", data._id); // Debugging log
 
     deleteButton.addEventListener("click", () => openDeleteModal(cardElement));
     likeButton.addEventListener("click", (event) =>
