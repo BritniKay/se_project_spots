@@ -15,24 +15,7 @@ const api = new Api({
   },
 });
 
-function renderInitialCards(cards) {
-  cards.forEach(renderCard);
-}
-
-api
-  .getInitialCards()
-  .then((cards) => {
-    console.log("Loaded Cards:", cards);
-
-    if (!Array.isArray(cards)) {
-      console.error("Error: Expected an array but received:", cards);
-      return;
-    }
-
-    renderInitialCards(cards);
-  })
-  .catch((error) => console.error("Error fetching initial cards:", error)); /*
-const initialCards = [
+/*const initialCards = [
   { name: "Val Thorens", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg" },
   { name: "Restaurant terrace", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg" },
   { name: "An outdoor cafe", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg" },
@@ -61,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const profileForm = document.forms["profile-form"];
   const editAvatarModal = document.querySelector("#edit-avatar-modal");
   const avatarForm = document.forms["edit-avatar-form"];
-  const inputAvatarUrl = document.querySelector("#avatar-url-input");
+  const inputAvatarUrl = document.querySelector("#avatar-image-url-input");
   const cardsContainer = document.querySelector(".cards__list");
   const cardTemplate = document.querySelector("#card-template").content;
   const addCardModal = document.querySelector("#add-card-modal");
@@ -133,11 +116,39 @@ document.addEventListener("DOMContentLoaded", function () {
         : userData.avatar;
     })
     .catch(console.error);
+  function createCardElement(data) {
+    // ... your existing createCardElement function ...
+  }
+
+  function renderCard(data) {
+    const cardElement = createCardElement(data);
+    cardsContainer.prepend(cardElement);
+  }
 
   function renderInitialCards(cards) {
     cards.forEach(renderCard);
   }
 
+  // Then keep your API call
+  api
+    .getInitialCards()
+    .then((cards) => {
+      console.log("Loaded Cards:", cards);
+      if (!Array.isArray(cards)) {
+        console.error("Error: Expected an array but received:", cards);
+        return;
+      }
+      renderInitialCards(cards);
+    })
+    .catch(console.error);
+
+  function renderInitialCards(cards) {
+    cards.forEach(renderCard);
+  }
+  function renderCard(data) {
+    const cardElement = createCardElement(data);
+    cardsContainer.prepend(cardElement);
+  }
   api
     .getInitialCards()
     .then((cards) => {
@@ -152,14 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
       renderInitialCards(cards); // Now it's defined before calling it!
     })
     .catch(console.error);
-
-  function renderCard(data, method = "prepend") {
-    if (!data.name || !data.link) return;
-    const cardElement = createCardElement(data);
-    method === "prepend"
-      ? cardsContainer.prepend(cardElement)
-      : cardsContainer.append(cardElement);
-  }
 
   function createCardElement(data) {
     const cardElement = cardTemplate.cloneNode(true).firstElementChild;
@@ -271,10 +274,33 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const newAvatarUrl = inputAvatarUrl?.value.trim();
       if (!newAvatarUrl) return;
-      if (profileAvatar) {
-        profileAvatar.src = newAvatarUrl;
+
+      // Show loading state
+      const submitButton = avatarForm.querySelector('button[type="submit"]');
+      if (submitButton) {
+        submitButton.textContent = "Saving...";
+        submitButton.disabled = true;
       }
-      closeModal(editAvatarModal);
+
+      // Make the API call
+      api
+        .updateProfileAvatar(newAvatarUrl)
+        .then((userData) => {
+          if (profileAvatar) {
+            profileAvatar.src = userData.avatar;
+          }
+          closeModal(editAvatarModal);
+          avatarForm.reset();
+        })
+        .catch((error) => {
+          console.error("Error updating avatar:", error);
+        })
+        .finally(() => {
+          if (submitButton) {
+            submitButton.textContent = "Save";
+            submitButton.disabled = false;
+          }
+        });
     });
   }
 
