@@ -14,13 +14,13 @@
   justify-content: center;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 628px) {
   .cards__list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 321px) {
   .cards__list {
     display: flex;
     flex-direction: column;
