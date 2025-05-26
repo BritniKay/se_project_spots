@@ -7,7 +7,6 @@ export const settings = {
   errorClass: "modal__error_visible",
 };
 
-// Define validation configuration separately
 export const validationconfig = {
   allowEmptyFields: false,
   validateOnBlur: true,
@@ -80,6 +79,8 @@ export function setEventListeners(formElement, config) {
   );
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
+  toggleButtonState(inputList, buttonElement, config);
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener(
       "input",
@@ -91,16 +92,40 @@ export function setEventListeners(formElement, config) {
   });
 }
 
+export function renderLoading(
+  buttonElement,
+  isLoading,
+  buttonText = "Save",
+  loadingText = "Saving..."
+) {
+  if (!buttonElement) return;
+
+  if (isLoading) {
+    buttonElement.textContent = loadingText;
+  } else {
+    buttonElement.textContent = buttonText;
+  }
+}
+
 export function toggleButtonState(inputList, buttonElement, config) {
-  const isFormInvalid = inputList.some((input) => !input.validity.valid);
   if (!buttonElement) {
     console.error(
       "Error: buttonElement is undefined, cannot toggle button state."
     );
     return;
   }
-  buttonElement.classList.toggle(config.inactiveButtonClass, isFormInvalid);
-  buttonElement.disabled = isFormInvalid;
+
+  const isFormInvalid = inputList.some((input) => {
+    return !input.validity.valid || !input.value.trim();
+  });
+
+  if (isFormInvalid) {
+    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
 }
 
 export function resetForm(formElement, config) {
@@ -114,14 +139,13 @@ export function resetForm(formElement, config) {
   );
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  inputList.forEach((inputElement) =>
-    hideInputError(formElement, inputElement, config)
-  );
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, config);
+  });
+
   if (buttonElement) {
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.disabled = true;
-  } else {
-    console.error("Error: buttonElement not found during form reset.");
   }
 }
 

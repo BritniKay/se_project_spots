@@ -6,7 +6,7 @@ import {
   settings,
   resetForm,
 } from "../scripts/validation.js";
-
+import { handleSubmit, renderLoading } from "../utils.js";
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -14,6 +14,23 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
+function showErrorMessage(error, operation) {
+  const errorMessages = {
+    "Failed to fetch": "Network error. Please check your internet connection.",
+    400: "Invalid data provided.",
+    401: "Authorization error. Please try again.",
+    403: "Access forbidden.",
+    404: "The requested resource was not found.",
+    500: "Server error. Please try again later.",
+  };
+
+  const defaultMessage = "An error occurred. Please try again.";
+  const message =
+    errorMessages[error.message] || error.message || defaultMessage;
+  console.error(`${operation} error:`, error);
+  alert(`${operation}: ${message}`);
+}
 
 /*const initialCards = [
   { name: "Val Thorens", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg" },
@@ -105,20 +122,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  if (deleteCardModal) {
+    deleteCardModal.addEventListener("mousedown", (event) => {
+      if (event.target === deleteCardModal) {
+        closeModal(deleteCardModal);
+      }
+    });
+  }
+
   api
     .getUserInfo()
     .then((userData) => {
-      console.log("API Response:", userData);
       profileName.textContent = userData.name || "Bessie Coleman";
       profileDescription.textContent = userData.about || "Civil Aviator";
       profileAvatar.src = userData.avatar.includes("placeholder")
         ? "./images/avatar.jpg"
         : userData.avatar;
     })
-    .catch(console.error);
-  function createCardElement(data) {
-    // ... your existing createCardElement function ...
-  }
+    .catch((error) => showErrorMessage(error, "Loading profile"));
 
   function renderCard(data) {
     const cardElement = createCardElement(data);
@@ -129,7 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
     cards.forEach(renderCard);
   }
 
-  // Then keep your API call
   api
     .getInitialCards()
     .then((cards) => {
@@ -142,47 +162,58 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(console.error);
 
-  function renderInitialCards(cards) {
-    cards.forEach(renderCard);
-  }
-  function renderCard(data) {
-    const cardElement = createCardElement(data);
-    cardsContainer.prepend(cardElement);
-  }
-  api
-    .getInitialCards()
-    .then((cards) => {
-      console.log("Loaded Cards:", cards);
-
-      // Safety check before using cards
-      if (!Array.isArray(cards)) {
-        console.error("Error: Expected an array but received:", cards);
-        return;
-      }
-
-      renderInitialCards(cards); // Now it's defined before calling it!
-    })
-    .catch(console.error);
-
   function createCardElement(data) {
     const cardElement = cardTemplate.cloneNode(true).firstElementChild;
     const cardTitle = cardElement.querySelector(".card__title");
     const cardImage = cardElement.querySelector(".card__img");
     const deleteButton = cardElement.querySelector(".card__delete-button");
     const likeButton = cardElement.querySelector(".card__like-button");
-
     cardTitle.textContent = data.name;
     cardImage.src = data.link;
     cardImage.alt = data.name;
 
-    // ✅ Assign the card ID for delete functionality
+    const likeCounter = cardElement.querySelector(".card__like-counter");
+    if (likeCounter) {
+      likeCounter.textContent =
+        data.likes && data.likes.length > 0 ? data.likes.length : "";
+    } else {
+      console.error("Like counter element not found in card template");
+    }
+    if (data.likes && Array.isArray(data.likes)) {
+      api
+        .getUserInfo()
+        .then((userData) => {
+          const isLiked = data.likes.some((like) => like._id === userData._id);
+          if (isLiked) {
+            likeButton.classList.add("liked");
+          }
+        })
+        .catch((err) => showErrorMessage(err, "checking like status"));
+    }
+
     cardElement.dataset.cardId = data._id;
-    console.log("Assigned card ID:", data._id); // Debugging log
 
     deleteButton.addEventListener("click", () => openDeleteModal(cardElement));
-    likeButton.addEventListener("click", (event) =>
-      event.target.classList.toggle("liked")
-    );
+
+    likeButton.addEventListener("click", () => {
+      const isLiked = likeButton.classList.contains("liked");
+
+      const likeMethod = isLiked
+        ? api.unlikeCard(data._id)
+        : api.likeCard(data._id);
+
+      likeMethod
+        .then((updatedCard) => {
+          likeButton.classList.toggle("liked");
+          likeCounter.textContent =
+            updatedCard.likes && updatedCard.likes.length > 0
+              ? updatedCard.likes.length
+              : "";
+        })
+        .catch((err) => {
+          showErrorMessage(err, "updating like status");
+        });
+    });
 
     cardImage.addEventListener("click", () => {
       if (previewImageModal && previewImage && previewCaption) {
@@ -209,13 +240,21 @@ document.addEventListener("DOMContentLoaded", function () {
     confirmDeleteButton.addEventListener("click", () => {
       if (!cardToDelete) return;
 
+      const deleteButton = confirmDeleteButton;
+      const originalText = deleteButton.textContent;
+
+      renderLoading(true, deleteButton, originalText);
+
       api
         .removeCard(cardToDelete.dataset.cardId)
         .then(() => {
           cardToDelete.remove();
           closeModal(deleteCardModal);
         })
-        .catch(console.error);
+        .catch((error) => showErrorMessage(error, "Deleting card"))
+        .finally(() => {
+          renderLoading(false, deleteButton, originalText);
+        });
     });
   }
 
@@ -230,36 +269,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (profileForm) {
-    profileForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+    profileForm.addEventListener("submit", handleProfileFormSubmit);
 
-      const saveButton = profileForm.querySelector(".modal__submit-btn");
-      const originalText = saveButton.textContent;
-
-      saveButton.textContent = "Saving...";
-      saveButton.disabled = true;
-
-      api
-        .updateUserInfo({
-          name: inputProfileName.value.trim(),
-          about: inputProfileDescription.value.trim(),
-        })
-        .then(() => {
-          if (profileName && inputProfileName) {
+    function handleProfileFormSubmit(evt) {
+      function makeRequest() {
+        return api
+          .updateUserInfo({
+            name: inputProfileName.value.trim(),
+            about: inputProfileDescription.value.trim(),
+          })
+          .then(() => {
             profileName.textContent = inputProfileName.value.trim();
-          }
-          if (profileDescription && inputProfileDescription) {
             profileDescription.textContent =
               inputProfileDescription.value.trim();
-          }
-          closeModal(profileEditModal);
-        })
-        .catch(console.error)
-        .finally(() => {
-          saveButton.textContent = originalText;
-          saveButton.disabled = false;
-        });
-    });
+            closeModal(profileEditModal);
+          });
+      }
+
+      handleSubmit(makeRequest, evt);
+    }
   }
 
   if (profileAvatarEditButton) {
@@ -270,38 +298,22 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (avatarForm) {
-    avatarForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const newAvatarUrl = inputAvatarUrl?.value.trim();
-      if (!newAvatarUrl) return;
+    avatarForm.addEventListener("submit", handleAvatarFormSubmit);
 
-      // Show loading state
-      const submitButton = avatarForm.querySelector('button[type="submit"]');
-      if (submitButton) {
-        submitButton.textContent = "Saving...";
-        submitButton.disabled = true;
+    function handleAvatarFormSubmit(evt) {
+      function makeRequest() {
+        return api
+          .updateAvatar({
+            avatar: inputAvatarUrl.value.trim(),
+          })
+          .then(() => {
+            profileAvatar.src = inputAvatarUrl.value.trim();
+            closeModal(avatarEditModal);
+          });
       }
 
-      // Make the API call
-      api
-        .updateProfileAvatar(newAvatarUrl)
-        .then((userData) => {
-          if (profileAvatar) {
-            profileAvatar.src = userData.avatar;
-          }
-          closeModal(editAvatarModal);
-          avatarForm.reset();
-        })
-        .catch((error) => {
-          console.error("Error updating avatar:", error);
-        })
-        .finally(() => {
-          if (submitButton) {
-            submitButton.textContent = "Save";
-            submitButton.disabled = false;
-          }
-        });
-    });
+      handleSubmit(makeRequest, evt);
+    }
   }
 
   if (openAddCardModalButton) {
@@ -311,24 +323,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (addCardForm) {
-    addCardForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const newCardData = {
-        name: inputCardCaption?.value.trim(),
-        link: inputCardImageLink?.value.trim(),
-      };
+    addCardForm.addEventListener("submit", handleCardFormSubmit);
 
-      if (!newCardData.name || !newCardData.link) return;
+    function handleCardFormSubmit(evt) {
+      function makeRequest() {
+        return api
+          .addCard({
+            name: inputCardCaption.value.trim(),
+            link: inputCardImageLink.value.trim(),
+          })
+          .then((cardData) => {
+            renderCard(cardData);
+            closeModal(addCardModal);
+          });
+      }
 
-      api
-        .addNewCard(newCardData)
-        .then((card) => {
-          renderCard(card);
-          addCardForm.reset();
-          closeModal(addCardModal);
-        })
-        .catch(console.error);
-    });
+      handleSubmit(makeRequest, evt);
+    }
   }
 
   enableValidation(settings);
