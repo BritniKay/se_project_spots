@@ -149,31 +149,9 @@ export function resetForm(formElement, config) {
   }
 }
 
-export function displayErrorsOnSubmit(formElement, config) {
-  if (!formElement) {
-    console.error(
-      "Error: displayErrorsOnSubmit called with undefined formElement."
-    );
-    return;
-  }
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
-  inputList.forEach((inputElement) =>
-    checkInputValidity(formElement, inputElement, config)
-  );
-}
-
 export function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
     setEventListeners(formElement, config);
-    formElement.addEventListener("submit", (event) => {
-      event.preventDefault();
-      displayErrorsOnSubmit(formElement, config);
-      if (formElement.checkValidity()) {
-        console.log("Form submitted successfully!");
-      }
-    });
   });
 }
