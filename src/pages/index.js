@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ".modal__image_preview"
   );
   const previewCaption = previewImageModal?.querySelector(".modal__caption");
+  const avatarEditModal = document.querySelector("#avatar-edit-modal");
 
   let cardToDelete = null;
 
@@ -168,17 +169,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const cardImage = cardElement.querySelector(".card__img");
     const deleteButton = cardElement.querySelector(".card__delete-button");
     const likeButton = cardElement.querySelector(".card__like-button");
+    const likeCounter = cardElement.querySelector(".card__like-counter"); // Added this line
+
     cardTitle.textContent = data.name;
     cardImage.src = data.link;
     cardImage.alt = data.name;
 
-    const likeCounter = cardElement.querySelector(".card__like-counter");
-    if (likeCounter) {
-      likeCounter.textContent =
-        data.likes && data.likes.length > 0 ? data.likes.length : "";
+    const likedCards = JSON.parse(localStorage.getItem("likedCards")) || {};
+    if (likedCards[data._id]) {
+      likeButton.classList.add("liked");
     } else {
       console.error("Like counter element not found in card template");
     }
+
     if (data.likes && Array.isArray(data.likes)) {
       api
         .getUserInfo()
@@ -205,10 +208,25 @@ document.addEventListener("DOMContentLoaded", function () {
       likeMethod
         .then((updatedCard) => {
           likeButton.classList.toggle("liked");
-          likeCounter.textContent =
-            updatedCard.likes && updatedCard.likes.length > 0
-              ? updatedCard.likes.length
-              : "";
+
+          const newStateIsLiked = likeButton.classList.contains("liked");
+
+          let likedCards = JSON.parse(localStorage.getItem("likedCards")) || {};
+
+          if (newStateIsLiked) {
+            likedCards[data._id] = true;
+          } else {
+            delete likedCards[data._id];
+          }
+
+          localStorage.setItem("likedCards", JSON.stringify(likedCards));
+
+          if (likeCounter) {
+            likeCounter.textContent =
+              updatedCard.likes && updatedCard.likes.length > 0
+                ? updatedCard.likes.length
+                : "";
+          } // Added a check to ensure likeCounter exists
         })
         .catch((err) => {
           showErrorMessage(err, "updating like status");
@@ -299,21 +317,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (avatarForm) {
     avatarForm.addEventListener("submit", handleAvatarFormSubmit);
-
-    function handleAvatarFormSubmit(evt) {
-      function makeRequest() {
-        return api
-          .updateAvatar({
-            avatar: inputAvatarUrl.value.trim(),
-          })
-          .then(() => {
-            profileAvatar.src = inputAvatarUrl.value.trim();
-            closeModal(avatarEditModal);
-          });
-      }
-
-      handleSubmit(makeRequest, evt);
+  }
+  function handleAvatarFormSubmit(evt) {
+    function makeRequest() {
+      return api.updateProfileAvatar(inputAvatarUrl.value.trim()).then(() => {
+        profileAvatar.src = inputAvatarUrl.value.trim();
+        closeModal(editAvatarModal);
+      });
     }
+
+    handleSubmit(makeRequest, evt);
   }
 
   if (openAddCardModalButton) {
@@ -328,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleCardFormSubmit(evt) {
       function makeRequest() {
         return api
-          .addCard({
+          .addNewCard({
             name: inputCardCaption.value.trim(),
             link: inputCardImageLink.value.trim(),
           })

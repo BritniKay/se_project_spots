@@ -78,7 +78,11 @@
   background-image: url(../images/pink\ hover.svg);
 }
 
-@media screen and (max-width: 627px) {
+.card__like-counter {
+  display: none;
+}
+
+.card @media screen and (max-width: 627px) {
   .card__img {
     width: 288px;
     height: 288px;
