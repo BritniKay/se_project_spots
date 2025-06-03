@@ -7,6 +7,7 @@ import {
   resetForm,
 } from "../scripts/validation.js";
 import { handleSubmit, renderLoading } from "../utils.js";
+
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -31,16 +32,6 @@ function showErrorMessage(error, operation) {
   console.error(`${operation} error:`, error);
   alert(`${operation}: ${message}`);
 }
-
-/*const initialCards = [
-  { name: "Val Thorens", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg" },
-  { name: "Restaurant terrace", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg" },
-  { name: "An outdoor cafe", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg" },
-  { name: "A very long bridge, over the forest and through the trees", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg" },
-  { name: "Tunnel with morning light", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg" },
-  { name: "Mountain house", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg" },
-];
-*/
 
 document.addEventListener("DOMContentLoaded", function () {
   const profileName = document.querySelector(".profile__name-first");
@@ -81,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ".modal__image_preview"
   );
   const previewCaption = previewImageModal?.querySelector(".modal__caption");
-  const avatarEditModal = document.querySelector("#avatar-edit-modal");
 
   let cardToDelete = null;
 
@@ -111,14 +101,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (closeDeleteModalButton) {
     closeDeleteModalButton.addEventListener("click", () => {
-      console.log("Close (X) button clicked in delete modal!");
       closeModal(deleteCardModal);
     });
   }
 
   if (cancelDeleteButton) {
     cancelDeleteButton.addEventListener("click", () => {
-      console.log("Cancel button clicked in delete modal!");
       closeModal(deleteCardModal);
     });
   }
@@ -154,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
   api
     .getInitialCards()
     .then((cards) => {
-      console.log("Loaded Cards:", cards);
       if (!Array.isArray(cards)) {
         console.error("Error: Expected an array but received:", cards);
         return;
@@ -169,29 +156,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const cardImage = cardElement.querySelector(".card__img");
     const deleteButton = cardElement.querySelector(".card__delete-button");
     const likeButton = cardElement.querySelector(".card__like-button");
-    const likeCounter = cardElement.querySelector(".card__like-counter"); // Added this line
+    const likeCounter = cardElement.querySelector(".card__like-counter");
 
     cardTitle.textContent = data.name;
     cardImage.src = data.link;
     cardImage.alt = data.name;
 
-    const likedCards = JSON.parse(localStorage.getItem("likedCards")) || {};
-    if (likedCards[data._id]) {
+    // Use server-provided isLiked property instead of localStorage
+    if (data.isLiked) {
       likeButton.classList.add("liked");
-    } else {
-      console.error("Like counter element not found in card template");
-    }
-
-    if (data.likes && Array.isArray(data.likes)) {
-      api
-        .getUserInfo()
-        .then((userData) => {
-          const isLiked = data.likes.some((like) => like._id === userData._id);
-          if (isLiked) {
-            likeButton.classList.add("liked");
-          }
-        })
-        .catch((err) => showErrorMessage(err, "checking like status"));
     }
 
     cardElement.dataset.cardId = data._id;
@@ -200,7 +173,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     likeButton.addEventListener("click", () => {
       const isLiked = likeButton.classList.contains("liked");
-
       const likeMethod = isLiked
         ? api.unlikeCard(data._id)
         : api.likeCard(data._id);
@@ -209,24 +181,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((updatedCard) => {
           likeButton.classList.toggle("liked");
 
-          const newStateIsLiked = likeButton.classList.contains("liked");
-
-          let likedCards = JSON.parse(localStorage.getItem("likedCards")) || {};
-
-          if (newStateIsLiked) {
-            likedCards[data._id] = true;
-          } else {
-            delete likedCards[data._id];
-          }
-
-          localStorage.setItem("likedCards", JSON.stringify(likedCards));
-
-          if (likeCounter) {
+          if (likeCounter && updatedCard.likes) {
             likeCounter.textContent =
-              updatedCard.likes && updatedCard.likes.length > 0
-                ? updatedCard.likes.length
-                : "";
-          } // Added a check to ensure likeCounter exists
+              updatedCard.likes.length > 0 ? updatedCard.likes.length : "";
+          }
         })
         .catch((err) => {
           showErrorMessage(err, "updating like status");
@@ -318,6 +276,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (avatarForm) {
     avatarForm.addEventListener("submit", handleAvatarFormSubmit);
   }
+
   function handleAvatarFormSubmit(evt) {
     function makeRequest() {
       return api.updateProfileAvatar(inputAvatarUrl.value.trim()).then(() => {
@@ -329,30 +288,54 @@ document.addEventListener("DOMContentLoaded", function () {
     handleSubmit(makeRequest, evt);
   }
 
+  const cardFormSubmitButton = addCardForm.querySelector(
+    "button[type='submit']"
+  );
+
+  function toggleCardFormButtonState() {
+    const isCaptionEmpty = inputCardCaption.value.trim() === "";
+    const isLinkEmpty = inputCardImageLink.value.trim() === "";
+
+    if (isCaptionEmpty || isLinkEmpty) {
+      cardFormSubmitButton.setAttribute("disabled", true);
+    } else {
+      cardFormSubmitButton.removeAttribute("disabled");
+    }
+  }
+
+  inputCardCaption.addEventListener("input", toggleCardFormButtonState);
+  inputCardImageLink.addEventListener("input", toggleCardFormButtonState);
+  toggleCardFormButtonState();
+
   if (openAddCardModalButton) {
-    openAddCardModalButton.addEventListener("click", () =>
-      openModal(addCardModal)
-    );
+    openAddCardModalButton.addEventListener("click", () => {
+      resetForm(addCardForm, settings);
+      openModal(addCardModal);
+    });
   }
 
   if (addCardForm) {
     addCardForm.addEventListener("submit", handleCardFormSubmit);
+  }
 
-    function handleCardFormSubmit(evt) {
-      function makeRequest() {
-        return api
-          .addNewCard({
-            name: inputCardCaption.value.trim(),
-            link: inputCardImageLink.value.trim(),
-          })
-          .then((cardData) => {
-            renderCard(cardData);
-            closeModal(addCardModal);
-          });
-      }
-
-      handleSubmit(makeRequest, evt);
+  function handleCardFormSubmit(evt) {
+    function makeRequest() {
+      return api
+        .addNewCard({
+          name: inputCardCaption.value.trim(),
+          link: inputCardImageLink.value.trim(),
+        })
+        .then((cardData) => {
+          renderCard(cardData);
+          closeModal(addCardModal);
+        })
+        .finally(() => {
+          addCardForm.reset();
+          toggleCardFormButtonState(); // Disable button again
+        });
     }
+
+    handleSubmit(makeRequest, evt);
   }
 
   enableValidation(settings);
