@@ -5,6 +5,11 @@ export const settings = {
   inactiveButtonClass: "modal__submit-btn_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
+  validationRules: {
+    name: { minLength: 2, maxLength: 40 },
+    description: { minLength: 2, maxLength: 200 },
+    url: { pattern: /^(ftp|http|https):\/\/[^ "]+$/ },
+  },
 };
 
 export const validationconfig = {
@@ -34,7 +39,8 @@ export function showInputError(
   inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(config.errorClass);
-  errorElement.setAttribute("aria-live", "assertive");
+  errorElement.setAttribute("aria-live", "polite");
+  inputElement.setAttribute("aria-describedby", inputElement.id + "-error");
 }
 
 export function hideInputError(formElement, inputElement, config) {
@@ -44,9 +50,25 @@ export function hideInputError(formElement, inputElement, config) {
   errorElement.classList.remove(config.errorClass);
   errorElement.textContent = "";
   errorElement.removeAttribute("aria-live");
+  inputElement.removeAttribute("aria-describedby");
 }
 
 export function checkInputValidity(formElement, inputElement, config) {
+  const rules = config.validationRules;
+
+  if (
+    inputElement.type === "url" &&
+    !rules.url.pattern.test(inputElement.value)
+  ) {
+    showInputError(
+      formElement,
+      inputElement,
+      "Please enter a valid URL.",
+      config
+    );
+    return;
+  }
+
   if (!inputElement.validity.valid) {
     showInputError(
       formElement,
@@ -61,9 +83,10 @@ export function checkInputValidity(formElement, inputElement, config) {
 
 export function debounce(func, delay = 300) {
   let timeout;
-  return (...args) => {
+  return function (...args) {
+    const context = this;
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), delay);
+    timeout = setTimeout(() => func.apply(context, args), delay);
   };
 }
 
@@ -87,7 +110,7 @@ export function setEventListeners(formElement, config) {
       debounce(() => {
         checkInputValidity(formElement, inputElement, config);
         toggleButtonState(inputList, buttonElement, config);
-      })
+      }, 300)
     );
   });
 }
@@ -102,8 +125,10 @@ export function renderLoading(
 
   if (isLoading) {
     buttonElement.textContent = loadingText;
+    buttonElement.disabled = true;
   } else {
     buttonElement.textContent = buttonText;
+    buttonElement.disabled = false;
   }
 }
 
